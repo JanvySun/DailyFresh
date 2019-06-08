@@ -17,4 +17,12 @@ public interface UserService {
      * @return : 是否激活成功
      */
     boolean active(String code);
+
+    /**
+     * 登录功能
+     * 根据用户名和密码查询用户
+     * @param user : 用户对象
+     * @return : 用户对象
+     */
+    User findByNameAndPwd(User user);
 }

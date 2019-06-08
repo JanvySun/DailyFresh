@@ -1,38 +1,31 @@
-<!DOCTYPE html>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <html lang="zh_CN">
 <head>
   <meta charset="UTF-8">
   <title>天天生鲜-用户中心</title>
-  <link rel="stylesheet" type="text/css" href="css/reset.css">
-  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css">
+  <script src="${pageContext.request.contextPath}/js/jquery-1.12.4.min.js"></script>
+  <script>
+      $(function () {
+          $.get("${pageContext.request.contextPath}/header", function (data) {
+              $("#header").html(data);
+          });
+          $.get("${pageContext.request.contextPath}/footer", function (data) {
+              $("#footer").html(data);
+          });
+
+      });
+  </script>
+
 </head>
 <body>
 <div class="header_con">
-  <div class="header">
-    <div class="welcome fl">欢迎来到天天生鲜!</div>
-    <div class="fr">
-      <div class="login_info fl">
-        欢迎您：<em>张 山</em>
-      </div>
-      <div class="login_btn fl">
-        <a href="WEB-INF/jsp/login.jsp">登录</a>
-        <span>|</span>
-        <a href="WEB-INF/jsp/register.jsp">注册</a>
-      </div>
-      <div class="user_link fl">
-        <span>|</span>
-        <a href="user_center_info.html">用户中心</a>
-        <span>|</span>
-        <a href="cart.html">我的购物车</a>
-        <span>|</span>
-        <a href="user_center_order.html">我的订单</a>
-      </div>
-    </div>
-  </div>
+  <div class="header" id="header"></div>
 </div>
 
 <div class="search_bar clearfix">
-  <a href="index.html" class="logo fl"><img src="images/logo.png"></a>
+  <a href="index.jsp" class="logo fl"><img src="${pageContext.request.contextPath}/images/logo.png"></a>
   <div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;用户中心</div>
   <div class="search_con fr">
     <input type="text" class="input_text fl" name="" placeholder="搜索商品">
@@ -44,9 +37,9 @@
   <div class="left_menu_con clearfix">
     <h3>用户中心</h3>
     <ul>
-      <li><a href="user_center_info.html" class="active">· 个人信息</a></li>
-      <li><a href="user_center_order.html">· 全部订单</a></li>
-      <li><a href="user_center_site.html">· 收货地址</a></li>
+      <li><a href="${pageContext.request.contextPath}/user/info" class="active">· 个人信息</a></li>
+      <li><a href="${pageContext.request.contextPath}/user/order">· 全部订单</a></li>
+      <li><a href="${pageContext.request.contextPath}/user/address">· 收货地址</a></li>
     </ul>
   </div>
   <div class="right_content clearfix">
@@ -63,8 +56,8 @@
     <div class="has_view_list">
       <ul class="goods_type_list clearfix">
         <li>
-          <a href="detail.html"><img src="images/goods/goods003.jpg"></a>
-          <h4><a href="detail.html">大兴大棚草莓</a></h4>
+          <a href="../../detail.html"><img src="${pageContext.request.contextPath}/images/goods/goods003.jpg"></a>
+          <h4><a href="../../detail.html">大兴大棚草莓</a></h4>
           <div class="operate">
             <span class="prize">￥16.80</span>
             <span class="unit">16.80/500g</span>
@@ -73,7 +66,7 @@
         </li>
 
         <li>
-          <a href="#"><img src="images/goods/goods004.jpg"></a>
+          <a href="#"><img src="${pageContext.request.contextPath}/images/goods/goods004.jpg"></a>
           <h4><a href="#">吐鲁番梨光杏</a></h4>
           <div class="operate">
             <span class="prize">￥5.50</span>
@@ -83,7 +76,7 @@
         </li>
 
         <li>
-          <a href="#"><img src="images/goods/goods005.jpg"></a>
+          <a href="#"><img src="${pageContext.request.contextPath}/images/goods/goods005.jpg"></a>
           <h4><a href="#">黄肉桃</a></h4>
           <div class="operate">
             <span class="prize">￥10.00</span>
@@ -93,7 +86,7 @@
         </li>
 
         <li>
-          <a href="#"><img src="images/goods/goods006.jpg"></a>
+          <a href="#"><img src="${pageContext.request.contextPath}/images/goods/goods006.jpg"></a>
           <h4><a href="#">进口西梅</a></h4>
           <div class="operate">
             <span class="prize">￥28.80</span>
@@ -103,7 +96,7 @@
         </li>
 
         <li>
-          <a href="#"><img src="images/goods/goods007.jpg"></a>
+          <a href="#"><img src="${pageContext.request.contextPath}/images/goods/goods007.jpg"></a>
           <h4><a href="#">香梨</a></h4>
           <div class="operate">
             <span class="prize">￥6.45</span>
@@ -117,19 +110,7 @@
 </div>
 
 
-<div class="footer">
-  <div class="foot_link">
-    <a href="#">关于我们</a>
-    <span>|</span>
-    <a href="#">联系我们</a>
-    <span>|</span>
-    <a href="#">招聘人才</a>
-    <span>|</span>
-    <a href="#">友情链接</a>
-  </div>
-  <p>CopyRight © 2016 北京天天生鲜信息技术有限公司 All Rights Reserved</p>
-  <p>电话：010-****888 京ICP备*******8号</p>
-</div>
+<div class="footer" id="footer"> </div>
 
 </body>
 </html>

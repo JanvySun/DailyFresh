@@ -6,8 +6,17 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface UserDao {
+
+    /**
+     * 查询所有用户
+     * @return : 返回查询到的用户
+     */
+    @Select("select * from user")
+    List<User> findAllUser();
 
     /**
      * 根据用户名查询用户信息
@@ -39,4 +48,13 @@ public interface UserDao {
      */
     @Update("update user set status='Y' where id=#{id}")
     void updateStatus(User user);
+
+    /**
+     * 通过用户名和密码查询用户
+     * @param username : 用户名
+     * @param password : 密码
+     * @return : 查询到的用户对象
+     */
+    @Select("select * from user where username=#{arg0} and password=#{arg1};")
+    User findByNameAndPwd(String username, String password);
 }

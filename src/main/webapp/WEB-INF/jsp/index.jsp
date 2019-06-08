@@ -1,41 +1,51 @@
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh_CN">
 <head>
   <meta charset="UTF-8">
   <title>天天生鲜-首页</title>
-  <link rel="stylesheet" type="text/css" href="css/reset.css">
-  <link rel="stylesheet" type="text/css" href="css/main.css">
-  <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
-  <script type="text/javascript" src="js/jquery-ui.min.js"></script>
-  <script type="text/javascript" src="js/slide.js"></script>
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/reset.css"/>
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css"/>
+  <script src="${pageContext.request.contextPath}/js/jquery-1.12.4.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js/jquery-ui.min.js"></script>
+  <script src="${pageContext.request.contextPath}/js/slide.js"></script>
+  <script type="text/javascript">
+
+      $(function () {
+          $.get("${pageContext.request.contextPath}/header", function (data) {
+              $("#header").html(data);
+          });
+          $.get("${pageContext.request.contextPath}/footer", function (data) {
+              $("#footer").html(data);
+          });
+          // BCSlideshow('focuspic');
+          // var oFruit = document.getElementById('fruit_more');
+          // var oShownum = document.getElementById('show_count');
+          //
+          // var hasorder = localStorage.getItem('order_finish');
+          //
+          // if (hasorder) {
+          //     oShownum.innerHTML = '2';
+          // }
+          //
+          // oFruit.onclick = function () {
+              <%--window.location.href = '${pageContext.request.contextPath}/list.html';--%>
+          // }
+      });
+
+  </script>
+
 </head>
 <body>
+
 <div class="header_con">
-  <div class="header">
-    <div class="welcome fl">欢迎来到天天生鲜!</div>
-    <div class="fr">
-      <div class="login_info fl">
-        欢迎您：<em>张 山</em>
-      </div>
-      <div class="login_btn fl">
-        <a href="WEB-INF/jsp/login.jsp">登录</a>
-        <span>|</span>
-        <a href="WEB-INF/jsp/register.jsp">注册</a>
-      </div>
-      <div class="user_link fl">
-        <span>|</span>
-        <a href="user_center_info.html">用户中心</a>
-        <span>|</span>
-        <a href="cart.html">我的购物车</a>
-        <span>|</span>
-        <a href="user_center_order.html">我的订单</a>
-      </div>
-    </div>
-  </div>
+  <div class="header" id="header"></div>
 </div>
 
 <div class="search_bar clearfix">
-  <a href="index.html" class="logo fl"><img src="images/logo.png"></a>
+  <a href="index.jsp" class="logo fl">
+    <img src="${pageContext.request.contextPath}/images/logo.png">
+  </a>
   <div class="search_con fl">
     <input type="text" class="input_text fl" name="" placeholder="搜索商品">
     <input type="button" class="input_btn fr" name="" value="搜索">
@@ -70,18 +80,18 @@
   </ul>
   <div class="slide fl">
     <ul class="slide_pics">
-      <li><img src="images/slide.jpg" alt="幻灯片"></li>
-      <li><img src="images/slide02.jpg" alt="幻灯片"></li>
-      <li><img src="images/slide03.jpg" alt="幻灯片"></li>
-      <li><img src="images/slide04.jpg" alt="幻灯片"></li>
+      <li><img src="${pageContext.request.contextPath}/images/slide.jpg" alt="幻灯片"></li>
+      <li><img src="${pageContext.request.contextPath}/images/slide02.jpg" alt="幻灯片"></li>
+      <li><img src="${pageContext.request.contextPath}/images/slide03.jpg" alt="幻灯片"></li>
+      <li><img src="${pageContext.request.contextPath}/images/slide04.jpg" alt="幻灯片"></li>
     </ul>
     <div class="prev"></div>
     <div class="next"></div>
     <ul class="points"></ul>
   </div>
   <div class="adv fl">
-    <a href="#"><img src="images/adv01.jpg"></a>
-    <a href="#"><img src="images/adv02.jpg"></a>
+    <a href="#"><img src="${pageContext.request.contextPath}/images/adv01.jpg" alt="广告"/></a>
+    <a href="#"><img src="${pageContext.request.contextPath}/images/adv02.jpg" alt="广告"/></a>
   </div>
 </div>
 
@@ -98,26 +108,28 @@
   </div>
 
   <div class="goods_con clearfix">
-    <div class="goods_banner fl"><img src="images/banner01.jpg"></div>
+    <div class="goods_banner fl">
+      <img src="${pageContext.request.contextPath}/images/banner01.jpg">
+    </div>
     <ul class="goods_list fl">
       <li>
         <h4><a href="#">草莓</a></h4>
-        <a href="#"><img src="images/goods/goods003.jpg"></a>
+        <a href="#"><img src="${pageContext.request.contextPath}/images/goods/goods003.jpg"></a>
         <div class="prize">¥ 30.00</div>
       </li>
       <li>
         <h4><a href="#">葡萄</a></h4>
-        <a href="#"><img src="images/goods/goods002.jpg"></a>
+        <a href="#"><img src="${pageContext.request.contextPath}/images/goods/goods002.jpg"></a>
         <div class="prize">¥ 5.50</div>
       </li>
       <li>
         <h4><a href="#">柠檬</a></h4>
-        <a href="#"><img src="images/goods/goods001.jpg"></a>
+        <a href="#"><img src="${pageContext.request.contextPath}/images/goods/goods001.jpg"></a>
         <div class="prize">¥ 3.90</div>
       </li>
       <li>
         <h4><a href="#">奇异果</a></h4>
-        <a href="#"><img src="images/goods/goods012.jpg"></a>
+        <a href="#"><img src="${pageContext.request.contextPath}/images/goods/goods012.jpg"></a>
         <div class="prize">¥ 25.80</div>
       </li>
     </ul>
@@ -136,26 +148,28 @@
   </div>
 
   <div class="goods_con clearfix">
-    <div class="goods_banner fl"><img src="images/banner02.jpg"></div>
+    <div class="goods_banner fl">
+      <img src="${pageContext.request.contextPath}/images/banner02.jpg">
+    </div>
     <ul class="goods_list fl">
       <li>
         <h4><a href="#">青岛野生海捕大青虾</a></h4>
-        <a href="#"><img src="images/goods/goods018.jpg"></a>
+        <a href="#"><img src="${pageContext.request.contextPath}/images/goods/goods018.jpg"></a>
         <div class="prize">¥ 48.00</div>
       </li>
       <li>
         <h4><a href="#">扇贝</a></h4>
-        <a href="#"><img src="images/goods/goods019.jpg"></a>
+        <a href="#"><img src="${pageContext.request.contextPath}/images/goods/goods019.jpg"></a>
         <div class="prize">¥ 46.00</div>
       </li>
       <li>
         <h4><a href="#">冷冻秋刀鱼</a></h4>
-        <a href="#"><img src="images/goods/goods020.jpg"></a>
+        <a href="#"><img src="${pageContext.request.contextPath}/images/goods/goods020.jpg"></a>
         <div class="prize">¥ 19.00</div>
       </li>
       <li>
         <h4><a href="#">基围虾</a></h4>
-        <a href="#"><img src="images/goods/goods021.jpg"></a>
+        <a href="#"><img src="${pageContext.request.contextPath}/images/goods/goods021.jpg"></a>
         <div class="prize">¥ 25.00</div>
       </li>
     </ul>
@@ -175,26 +189,28 @@
   </div>
 
   <div class="goods_con clearfix">
-    <div class="goods_banner fl"><img src="images/banner03.jpg"></div>
+    <div class="goods_banner fl">
+      <img src="${pageContext.request.contextPath}/images/banner03.jpg">
+    </div>
     <ul class="goods_list fl">
       <li>
         <h4><a href="#">维多利亚葡萄维多利亚葡萄维多利亚葡萄维多利亚葡萄</a></h4>
-        <a href="#"><img src="images/goods.jpg"></a>
+        <a href="#"><img src="${pageContext.request.contextPath}/images/goods.jpg"></a>
         <div class="prize">¥ 38.00</div>
       </li>
       <li>
         <h4><a href="#">维多利亚葡萄</a></h4>
-        <a href="#"><img src="images/goods.jpg"></a>
+        <a href="#"><img src="${pageContext.request.contextPath}/images/goods.jpg"></a>
         <div class="prize">¥ 38.00</div>
       </li>
       <li>
         <h4><a href="#">维多利亚葡萄</a></h4>
-        <a href="#"><img src="images/goods.jpg"></a>
+        <a href="#"><img src="${pageContext.request.contextPath}/images/goods.jpg"></a>
         <div class="prize">¥ 38.00</div>
       </li>
       <li>
         <h4><a href="#">维多利亚葡萄</a></h4>
-        <a href="#"><img src="images/goods.jpg"></a>
+        <a href="#"><img src="${pageContext.request.contextPath}/images/goods.jpg"></a>
         <div class="prize">¥ 38.00</div>
       </li>
     </ul>
@@ -214,26 +230,28 @@
   </div>
 
   <div class="goods_con clearfix">
-    <div class="goods_banner fl"><img src="images/banner04.jpg"></div>
+    <div class="goods_banner fl">
+      <img src="${pageContext.request.contextPath}/images/banner04.jpg">
+    </div>
     <ul class="goods_list fl">
       <li>
         <h4><a href="#">维多利亚葡萄维多利亚葡萄维多利亚葡萄维多利亚葡萄</a></h4>
-        <a href="#"><img src="images/goods.jpg"></a>
+        <a href="#"><img src="${pageContext.request.contextPath}/images/goods.jpg"></a>
         <div class="prize">¥ 38.00</div>
       </li>
       <li>
         <h4><a href="#">维多利亚葡萄</a></h4>
-        <a href="#"><img src="images/goods.jpg"></a>
+        <a href="#"><img src="${pageContext.request.contextPath}/images/goods.jpg"></a>
         <div class="prize">¥ 38.00</div>
       </li>
       <li>
         <h4><a href="#">维多利亚葡萄</a></h4>
-        <a href="#"><img src="images/goods.jpg"></a>
+        <a href="#"><img src="${pageContext.request.contextPath}/images/goods.jpg"></a>
         <div class="prize">¥ 38.00</div>
       </li>
       <li>
         <h4><a href="#">维多利亚葡萄</a></h4>
-        <a href="#"><img src="images/goods.jpg"></a>
+        <a href="#"><img src="${pageContext.request.contextPath}/images/goods.jpg"></a>
         <div class="prize">¥ 38.00</div>
       </li>
     </ul>
@@ -253,26 +271,28 @@
   </div>
 
   <div class="goods_con clearfix">
-    <div class="goods_banner fl"><img src="images/banner05.jpg"></div>
+    <div class="goods_banner fl">
+      <img src="${pageContext.request.contextPath}/images/banner05.jpg">
+    </div>
     <ul class="goods_list fl">
       <li>
         <h4><a href="#">维多利亚葡萄维多利亚葡萄维多利亚葡萄维多利亚葡萄</a></h4>
-        <a href="#"><img src="images/goods.jpg"></a>
+        <a href="#"><img src="${pageContext.request.contextPath}/images/goods.jpg"></a>
         <div class="prize">¥ 38.00</div>
       </li>
       <li>
         <h4><a href="#">维多利亚葡萄</a></h4>
-        <a href="#"><img src="images/goods.jpg"></a>
+        <a href="#"><img src="${pageContext.request.contextPath}/images/goods.jpg"></a>
         <div class="prize">¥ 38.00</div>
       </li>
       <li>
         <h4><a href="#">维多利亚葡萄</a></h4>
-        <a href="#"><img src="images/goods.jpg"></a>
+        <a href="#"><img src="${pageContext.request.contextPath}/images/goods.jpg"></a>
         <div class="prize">¥ 38.00</div>
       </li>
       <li>
         <h4><a href="#">维多利亚葡萄</a></h4>
-        <a href="#"><img src="images/goods.jpg"></a>
+        <a href="#"><img src="${pageContext.request.contextPath}/images/goods.jpg"></a>
         <div class="prize">¥ 38.00</div>
       </li>
     </ul>
@@ -292,60 +312,35 @@
   </div>
 
   <div class="goods_con clearfix">
-    <div class="goods_banner fl"><img src="images/banner06.jpg"></div>
+    <div class="goods_banner fl">
+      <img src="${pageContext.request.contextPath}/images/banner06.jpg">
+    </div>
     <ul class="goods_list fl">
       <li>
         <h4><a href="#">维多利亚葡萄维多利亚葡萄维多利亚葡萄维多利亚葡萄</a></h4>
-        <a href="#"><img src="images/goods.jpg"></a>
+        <a href="#"><img src="${pageContext.request.contextPath}/images/goods.jpg"></a>
         <div class="prize">¥ 38.00</div>
       </li>
       <li>
         <h4><a href="#">维多利亚葡萄</a></h4>
-        <a href="#"><img src="images/goods.jpg"></a>
+        <a href="#"><img src="${pageContext.request.contextPath}/images/goods.jpg"></a>
         <div class="prize">¥ 38.00</div>
       </li>
       <li>
         <h4><a href="#">维多利亚葡萄</a></h4>
-        <a href="#"><img src="images/goods.jpg"></a>
+        <a href="#"><img src="${pageContext.request.contextPath}/images/goods.jpg"></a>
         <div class="prize">¥ 38.00</div>
       </li>
       <li>
         <h4><a href="#">维多利亚葡萄</a></h4>
-        <a href="#"><img src="images/goods.jpg"></a>
+        <a href="#"><img src="${pageContext.request.contextPath}/images/goods.jpg"></a>
         <div class="prize">¥ 38.00</div>
       </li>
     </ul>
   </div>
 </div>
 
-<div class="footer">
-  <div class="foot_link">
-    <a href="#">关于我们</a>
-    <span>|</span>
-    <a href="#">联系我们</a>
-    <span>|</span>
-    <a href="#">招聘人才</a>
-    <span>|</span>
-    <a href="#">友情链接</a>
-  </div>
-  <p>CopyRight © 2016 北京天天生鲜信息技术有限公司 All Rights Reserved</p>
-  <p>电话：010-****888 京ICP备*******8号</p>
-</div>
+<div class="footer" id="footer"> </div>
 
-<script type="text/javascript">
-    BCSlideshow('focuspic');
-    var oFruit = document.getElementById('fruit_more');
-    var oShownum = document.getElementById('show_count');
-
-    var hasorder = localStorage.getItem('order_finish');
-
-    if (hasorder) {
-        oShownum.innerHTML = '2';
-    }
-
-    oFruit.onclick = function () {
-        window.location.href = 'list.html';
-    }
-</script>
 </body>
 </html>

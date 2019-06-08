@@ -11,6 +11,10 @@
 
       $(function () {
 
+          $.get("${pageContext.request.contextPath}/footer", function (data) {
+              $("#footer").html(data);
+          });
+
           $('#user_name').blur(check_user_name);
           $('#pwd').blur(check_pwd);
           $('#cpwd').blur(check_cpwd);
@@ -79,7 +83,7 @@
   <div class="r_con fr">
     <div class="reg_title clearfix">
       <h1>用户注册</h1>
-      <a href="#">登录</a>
+      <a href="${pageContext.request.contextPath}/login">登录</a>
     </div>
     <div class="reg_form clearfix">
       <form id="registerForm">
@@ -120,19 +124,7 @@
 
 </div>
 
-<div class="footer no-mp">
-  <div class="foot_link">
-    <a href="#">关于我们</a>
-    <span>|</span>
-    <a href="#">联系我们</a>
-    <span>|</span>
-    <a href="#">招聘人才</a>
-    <span>|</span>
-    <a href="#">友情链接</a>
-  </div>
-  <p>CopyRight © 2016 岳阳天天生鲜信息技术有限公司 All Rights Reserved</p>
-  <p>电话：0730-8888888 京ICP备8*******8号</p>
-</div>
+<div class="footer no-mp" id="footer"></div>
 
 </body>
 </html>
