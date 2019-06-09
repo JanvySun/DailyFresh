@@ -57,4 +57,11 @@ public interface UserDao {
      */
     @Select("select * from user where username=#{arg0} and password=#{arg1};")
     User findByNameAndPwd(String username, String password);
+
+    /**
+     * 根据用户id查询用户
+     * @return : 查询到的用户实体
+     */
+    @Select("select * from user where id=#{id}")
+    User findById(Integer id);
 }

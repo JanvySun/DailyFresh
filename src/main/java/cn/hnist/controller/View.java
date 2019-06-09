@@ -2,7 +2,9 @@ package cn.hnist.controller;
 
 import cn.hnist.utils.CookieUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
@@ -16,7 +18,6 @@ public class View {
      */
     @RequestMapping("/header")
     public String header() {
-        // 判断用户是否登录
         return "header";
     }
     /**
@@ -40,7 +41,7 @@ public class View {
      * 登录页面
      */
     @RequestMapping("/login")
-    public ModelAndView login(HttpServletRequest request) {
+    public ModelAndView login(@RequestParam(required = false) String next, HttpServletRequest request) {
         ModelAndView mv = new ModelAndView();
         // 判断是否记住用户名
         Cookie cookie = CookieUtils.getCookie(request, "username");
@@ -52,12 +53,13 @@ public class View {
         }
         mv.addObject("username", username);
         mv.addObject("remember",remember);
+        mv.addObject("refer", next);
         mv.setViewName("login");
         return mv;
     }
 
     /**
-     * 主页
+     * index页面
      */
     @RequestMapping("/index")
     public String index() {
@@ -65,32 +67,12 @@ public class View {
     }
 
     /**
-     * 用户中心-信息页面
+     * 注册成功页面
      */
-    @RequestMapping("/user/info")
-    public String userInfo() {
-        return "userCenterInfo";
-    }
-
-    /**
-     * 用户中心-订单页面
-     */
-    @RequestMapping("/user/order")
-    public String userOrder() {
-        return "userCenterOrder";
-    }
-
-    /**
-     * 用户中心-地址页面
-     */
-    @RequestMapping("/user/address")
-    public String userAddress() {
-        return "userCenterSite";
-    }
-
     @RequestMapping("/registOk")
-    public String registOk() {
-        return "registOk";
+    public String registOk(Model model) {
+        model.addAttribute("title", "注册成功");
+        model.addAttribute("info","恭喜，注册成功！请登录您的注册邮箱进行激活您的账号，激活后才能登录。");
+        return "info";
     }
-
 }

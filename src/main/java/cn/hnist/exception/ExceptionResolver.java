@@ -25,8 +25,9 @@ public class ExceptionResolver implements HandlerExceptionResolver{
         // 将异常信息输出在控制台
         we.printStackTrace();
 
-        mv.addObject("error_msg", we.getMessage());
-        mv.setViewName("error");
+        mv.addObject("info", we.getMessage());
+        mv.addObject("title","服务器异常");
+        mv.setViewName("info");
         return mv;
     }
 }

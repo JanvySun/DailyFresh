@@ -2,6 +2,8 @@ package cn.hnist.service;
 
 import cn.hnist.pojo.User;
 
+import javax.servlet.http.HttpSession;
+
 public interface UserService {
 
     /**

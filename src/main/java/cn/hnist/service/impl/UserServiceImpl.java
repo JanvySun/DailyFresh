@@ -7,7 +7,9 @@ import cn.hnist.utils.UuidUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
+import javax.servlet.http.HttpSession;
+
+@Service("UserService")
 public class UserServiceImpl implements UserService{
 
     @Autowired

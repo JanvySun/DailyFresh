@@ -8,10 +8,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,9 +31,9 @@ public class UserController {
      * @param json : 传入的json字符串
      * @return : 状态，json格式
      */
-    @RequestMapping("/registerHandle")
-    public @ResponseBody ResultInfo registerHandle(@RequestBody String json) throws IOException {
-
+    @RequestMapping(value = "/registerHandle", method = RequestMethod.POST)
+    @ResponseBody
+    public ResultInfo registerHandle(@RequestBody String json) throws IOException {
 
         // 接收数据，创建User并获取json中的username/password/email
         JsonNode tree = new ObjectMapper().readTree(json);
@@ -53,7 +50,7 @@ public class UserController {
 
         // 进行业务处理(用户注册)
         info.setFlag(userService.regist(user));
-        if(!info.isFlag()) {
+        if (!info.isFlag()) {
             // 注册失败
             info.setMessage("注册失败");
         }
@@ -69,23 +66,24 @@ public class UserController {
      */
     @RequestMapping("/activeHandle/{CODE}")
     public ModelAndView activeHandle(@PathVariable("CODE") String code) {
-        ResultInfo info = new ResultInfo();
+
+        String info = null;
         if (code != null) {
             // 调用Service完成激活
-            info.setFlag(userService.active(code));
-            if (info.isFlag()) {
+            if (userService.active(code)) {
                 // 激活成功
-                info.setMessage("激活成功，请<a href='/login'>登录</a>");
+                info = "激活成功，请<a href='/login'>登录</a>";
             } else {
                 // 激活失败
-                info.setMessage("激活失败，您可能已经激活，如未激活请联系管理员");
+                info = "激活失败，您的激活码有误或者您可能已经激活，如未激活请联系管理员";
             }
         }
 
         // 返回页面
         ModelAndView mv = new ModelAndView();
-        mv.addObject("info",info);
-        mv.setViewName("active");
+        mv.addObject("info", info);
+        mv.addObject("title", "激活信息");
+        mv.setViewName("info");
         return mv;
     }
 
@@ -94,10 +92,11 @@ public class UserController {
      * @param json : 请求的json数据
      * @return : 返回json
      */
-    @RequestMapping("/loginHandle")
-    public @ResponseBody ResultInfo loginHandle(@RequestBody String json,
-                                                HttpServletResponse response,
-                                                HttpServletRequest request) throws IOException {
+    @RequestMapping(value = "/loginHandle", method = RequestMethod.POST)
+    @ResponseBody
+    public ResultInfo loginHandle(@RequestBody String json,
+                                  HttpServletResponse response,
+                                  HttpServletRequest request) throws IOException {
 
         //System.out.println(json);
 
@@ -114,24 +113,24 @@ public class UserController {
         User u = userService.findByNameAndPwd(user);
 
         ResultInfo info = new ResultInfo();
-        if (u == null){
+        if (u == null) {
             // 用户名或密码错误
             info.setFlag(false);
             info.setMessage("用户名或密码错误");
         } else {
             // 判断用户是否激活
-            if (u.getStatus() == 'Y'){
+            if (u.getStatus() == 'Y') {
                 // 登录成功
                 info.setFlag(true);
                 // 将用户存入session中
-                request.getSession().setAttribute("user",user);
+                request.getSession().setAttribute("user", u);
                 // 判断是否需要记住用户名
-                if("on".equals(remember)){
+                if ("on".equals(remember)) {
                     // 记住用户名，添加Cookie
-                    CookieUtils.addCookie(response,"username",user.getUsername());
+                    CookieUtils.addCookie(response, "username", user.getUsername());
                 } else {
                     // 删除Cookie
-                    CookieUtils.delCookie(request, response,"username");
+                    CookieUtils.delCookie(request, response, "username");
                 }
             } else {
                 // 用户未激活
@@ -145,11 +144,15 @@ public class UserController {
     }
 
     /**
-     * 退出登录
+     * Ajax退出登录
      */
-    @RequestMapping("/logoutHandle")
-    public String logoutHandle(HttpSession session){
+    @RequestMapping(value = "/logoutHandle", method = RequestMethod.POST)
+    @ResponseBody
+    public ResultInfo logoutHandle(HttpSession session) {
+        ResultInfo info = new ResultInfo();
         session.invalidate();
-        return "index";
+        info.setFlag(true);
+        return info;
     }
+
 }

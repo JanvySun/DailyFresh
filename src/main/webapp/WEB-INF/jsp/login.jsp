@@ -6,10 +6,11 @@
   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/reset.css">
   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css">
   <script src="${pageContext.request.contextPath}/js/jquery-1.12.4.min.js"></script>
-  <%--<script type="text/javascript" src="${pageContext.request.contextPath}/js/login.js"></script>--%>
   <script>
 
       $(function () {
+          // 登录成功下一页
+          var next = "${refer}" == "" ? "/index" : "${refer}";
           $.get("${pageContext.request.contextPath}/footer", function (data) {
               $("#footer").html(data);
           });
@@ -29,7 +30,7 @@
                   success : function (data) {
                       if(data.flag) {
                           // 登录成功
-                          location.href = "${pageContext.request.contextPath}/index";
+                          location.href = "${pageContext.request.contextPath}" + next;
                       } else {
                           // 登录失败
                           alert(data.message);

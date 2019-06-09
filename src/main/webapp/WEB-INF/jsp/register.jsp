@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title>天天生鲜-注册</title>
-  <link rel="stylesheet" type="text/css" href="css/reset.css">
-  <link rel="stylesheet" type="text/css" href="css/main.css">
-  <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
-  <script type="text/javascript" src="js/register.js"></script>
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}css/reset.css">
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}css/main.css">
+  <script src="${pageContext.request.contextPath}js/jquery-1.12.4.min.js"></script>
+  <script src="${pageContext.request.contextPath}js/register.js"></script>
   <script>
 
       $(function () {

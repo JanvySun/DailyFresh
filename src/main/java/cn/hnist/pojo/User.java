@@ -2,13 +2,16 @@ package cn.hnist.pojo;
 
 import java.io.Serializable;
 
+/**
+ * 用户实体类
+ */
 public class User implements Serializable {
+    private Integer id; //主键无需set方法
     private String username;
     private String password;
     private String email;
     private Character status;
     private String code;
-    private Integer id;
     private Character is_superuser;
 
     public String getUsername() {
@@ -53,10 +56,6 @@ public class User implements Serializable {
 
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Character getIs_superuser() {

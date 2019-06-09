@@ -2,7 +2,7 @@
 <html lang="zh_CN">
 <head>
   <meta charset="UTF-8">
-  <title>错误页面</title>
+  <title>${title}</title>
   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/reset.css">
   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css">
   <script src="${pageContext.request.contextPath}/js/jquery-1.12.4.min.js"></script>
@@ -14,12 +14,12 @@
       });
   </script>
   <style>
-    #my_box{
+    #box{
       margin:20px auto 0px;
       width:100%;
       height:100px;
     }
-    #ok_msg{
+    #msg{
       margin: 50px auto 60px;
       text-align:center;
       font-weight:bold;
@@ -31,18 +31,17 @@
 </head>
 <body>
 
-<div id="my_box">
+<div id="box">
   <div class="l_con fl">
     <a class="reg_logo"><img src="${pageContext.request.contextPath}/images/logo02.png"></a>
     <div class="reg_slogan">足不出户 · 新鲜每一天</div>
   </div>
 </div>
-<div id="ok_msg">
-  <h4>${error_msg}</h4>
+<div id="msg">
+  <h4>${info}</h4>
 </div>
 
-<div class="footer no-mp" id="footer">
-</div>
+<div class="footer no-mp" id="footer"></div>
 
 </body>
 </html>

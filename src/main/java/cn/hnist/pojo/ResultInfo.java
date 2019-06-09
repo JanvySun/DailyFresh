@@ -2,7 +2,11 @@ package cn.hnist.pojo;
 
 import java.io.Serializable;
 
+/**
+ * 页面信息类
+ */
 public class ResultInfo implements Serializable {
+
     private boolean flag;
     private String message;
 
