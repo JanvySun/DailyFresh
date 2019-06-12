@@ -9,8 +9,6 @@
   <script>
 
       $(function () {
-          // 登录成功下一页
-          var next = "${refer}" == "" ? "/index" : "${refer}";
           $.get("${pageContext.request.contextPath}/footer", function (data) {
               $("#footer").html(data);
           });
@@ -29,7 +27,8 @@
                   dataType:"json",
                   success : function (data) {
                       if(data.flag) {
-                          // 登录成功
+                          // 登录成功，跳转到下一页
+                          var next = "${refer}" == "" ? "/index" : "${refer}";
                           location.href = "${pageContext.request.contextPath}" + next;
                       } else {
                           // 登录失败

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service("AddressService")
+@Service("addressService")
 public class AddressServiceImpl implements AddressService {
 
     @Autowired

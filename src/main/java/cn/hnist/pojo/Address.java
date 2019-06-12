@@ -7,13 +7,17 @@ import java.io.Serializable;
  */
 public class Address implements Serializable {
 
-    private Integer id; //主键无需set方法
-    private String receiver;
-    private String addr;
-    private String zip_code;
-    private String phone;
+    private Integer id;
+    private String receiver;    // 收件人
+    private String addr;        // 地址
+    private String zip_code;    // 邮编
+    private String phone;       // 手机号
     private Character is_default;
-    private Integer user_id;
+    private Integer user_id;    // 对应的userID
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Integer getId() {
         return id;

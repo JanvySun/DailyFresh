@@ -6,13 +6,18 @@ import java.io.Serializable;
  * 用户实体类
  */
 public class User implements Serializable {
-    private Integer id; //主键无需set方法
-    private String username;
-    private String password;
-    private String email;
-    private Character status;
-    private String code;
+
+    private Integer id;
+    private String username;    // 用户名
+    private String password;    // 密码
+    private String email;       // 邮箱
+    private Character status;   // 是否激活('Y'/'N')
+    private String code;        // 激活码
     private Character is_superuser;
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;
