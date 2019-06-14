@@ -12,6 +12,10 @@ public class GoodsType implements Serializable{
     private String logo;    // 标识，用于控制雪碧图
     private String image;   // 种类的类型图片
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }

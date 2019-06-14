@@ -19,6 +19,10 @@ public class GoodsSKU implements Serializable{
     private Integer goods_id;   // 商品SPU
     private Integer type_id;    // 商品种类
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }

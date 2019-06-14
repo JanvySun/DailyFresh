@@ -9,6 +9,15 @@ public class ResultInfo implements Serializable {
 
     private boolean flag;
     private String message;
+    private Object obj;
+
+    public Object getObj() {
+        return obj;
+    }
+
+    public void setObj(Object obj) {
+        this.obj = obj;
+    }
 
     public ResultInfo() { }
 

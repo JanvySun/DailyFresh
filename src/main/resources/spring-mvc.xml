@@ -39,6 +39,10 @@
             <mvc:mapping path="/user/**"/>
             <bean class="cn.hnist.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/admin/**"/>
+            <bean class="cn.hnist.interceptor.AdminInterceptor"/>
+        </mvc:interceptor>
     </mvc:interceptors>
 
 

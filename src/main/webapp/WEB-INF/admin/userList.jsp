@@ -85,8 +85,8 @@
   <h3 style="text-align: center"></h3>
 
   <div style="float: right;margin: 5px;">
-    <a class="btn btn-primary" href="${pageContext.request.contextPath}/admin/user/add">添加用户</a>
-    <a class="btn btn-primary" href="javascript:void(0);" id="delSelected">删除选中</a>
+    <a class="btn btn-success" href="${pageContext.request.contextPath}/admin/user/add">添加用户</a>
+    <a class="btn btn-success" href="javascript:void(0);" id="delSelected">删除选中</a>
   </div>
 
   <form id="form" action="${pageContext.request.contextPath}/admin/user/delSelect" method="post">

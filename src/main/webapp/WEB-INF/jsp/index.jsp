@@ -75,8 +75,9 @@
     <ul class="points"></ul>
   </div>
   <div class="adv fl">
-    <a href="#"><img src="${pageContext.request.contextPath}/images/adv01.jpg" alt="广告"/></a>
-    <a href="#"><img src="${pageContext.request.contextPath}/images/adv02.jpg" alt="广告"/></a>
+    <c:forEach items="${promotionBanners}" var="bn" varStatus="s">
+      <a href="#"><img src="${bn.image}" alt="${bn.name}"></a>
+    </c:forEach>
   </div>
 </div>
 

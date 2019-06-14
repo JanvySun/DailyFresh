@@ -33,7 +33,7 @@
           //用户安全提示
           if (confirm("您确定要删除吗？")) {
               //访问路径
-              location.href = "${pageContext.request.contextPath}/admin/user/del/" + id;
+              location.href = "${pageContext.request.contextPath}/admin/address/del/" + id;
           }
       }
 
@@ -87,11 +87,11 @@
 <div class="container">
 
   <div style="float: right;margin: 5px;">
-    <a class="btn btn-primary" href="${pageContext.request.contextPath}/admin/address/add?uname=${username}">添加地址</a>
-    <a class="btn btn-primary" href="javascript:void(0);" id="delSelected">删除选中</a>
+    <a class="btn btn-success" href="${pageContext.request.contextPath}/admin/address/add?uname=${username}">添加地址</a>
+    <a class="btn btn-success" href="javascript:void(0);" id="delSelected">删除选中</a>
   </div>
 
-  <form id="form" action="${pageContext.request.contextPath}/admin/user/delSelect" method="post">
+  <form id="form" action="${pageContext.request.contextPath}/admin/address/delSelect" method="post">
     <table border="1" class="table table-bordered table-hover">
       <tr class="success">
         <th><input type="checkbox" id="firstCb"></th>

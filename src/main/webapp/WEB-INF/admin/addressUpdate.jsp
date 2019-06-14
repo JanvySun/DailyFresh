@@ -27,7 +27,6 @@
 
   <script>
       $(function () {
-          alert("${addr.id}");
           if ("${addr.is_default}" == "Y") {
               $("#is_active").prop("checked",true);
           } else {
@@ -45,7 +44,7 @@
                   $.post("${pageContext.request.contextPath}/admin/address/updateHandle", $(this).serialize(),
                       function (data) {
                           if (data.flag == true) {
-                              location.href = "${pageContext.request.contextPath}/admin/addr/list/${addr.user_id}";
+                              location.href = "${pageContext.request.contextPath}/admin/address/list/${addr.user_id}";
                           } else {
                               alert(data.message);
                           }
@@ -99,7 +98,7 @@
     </div>
 
     <div class="form-group" style="text-align: center">
-      <input class="btn btn-primary" type="submit" value="提交"/>
+      <input class="btn btn-success" type="submit" value="提交"/>
       <input class="btn btn-default" type="reset" value="重置"/>
       <input class="btn btn-default" type="button" value="返回"/>
     </div>

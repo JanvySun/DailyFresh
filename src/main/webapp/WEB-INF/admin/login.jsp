@@ -27,10 +27,20 @@
       //切换验证码方法
       function refreshCode() {
           // 获取验证码图片对象
-          var vcode = $("#vcode");
-          // 设置其src属性，加时间戳
-          vcode.src = "${pageContext.request.contextPath}/checkCode?time=" + new Date().getTime();
+          $("#vcode").prop("src","${pageContext.request.contextPath}/checkCode?time=" + new Date().getTime());
       }
+      $(function () {
+          $("#login_form").submit(function () {
+              $.post("${pageContext.request.contextPath}/admin/loginHandle", $(this).serialize(), function (data) {
+                  if(data.flag==true){
+                      location.href="${pageContext.request.contextPath}/admin/index";
+                  } else {
+                      alert(data.message);
+                  }
+              });
+              return false;
+          });
+      });
   </script>
 
 </head>
@@ -42,7 +52,7 @@
 <div class="reg_slogan">管理员登录</div>
 
 <div class="container" style="width: 400px;">
-  <form action="${pageContext.request.contextPath}/admin/login" method="post">
+  <form id="login_form">
     <div class="form-group">
       <label for="user">用户名：</label>
       <input type="text" name="username" class="form-control" id="user" placeholder="请输入用户名"/>
@@ -57,7 +67,7 @@
       <label for="vcode">验证码：</label>
       <input type="text" name="verifycode" class="form-control" id="verifycode" placeholder="请输入验证码"
              style="width: 120px;"/>
-      <a href="javascript:refreshCode();">
+      <a id="code" href="javascript:refreshCode()">
         <img src="${pageContext.request.contextPath}/checkCode" title="看不清点击刷新" id="vcode"/>
       </a>
     </div>
@@ -65,7 +75,7 @@
     <hr/>
 
     <div class="form-group" style="text-align: center;">
-      <input class="btn btn btn-primary" type="submit" value="登录">
+      <input class="btn btn btn-success" type="submit" value="登录">
     </div>
   </form>
 

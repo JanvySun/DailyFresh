@@ -2,6 +2,7 @@ package test;
 
 import cn.hnist.dao.GoodsDao;
 import cn.hnist.pojo.GoodsType;
+import cn.hnist.pojo.IndexPromotionBanner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,24 @@ public class GoodsDaoTest {
         type.setLogo("ice");
         type.setImage("file:///E:/Desktop/Pictures/DailyFresh/banner06.jpg");
         goodsDao.addType(type);
+    }
+
+    @Test
+    public void test03() {
+        List<IndexPromotionBanner> lists = goodsDao.findAllPromotionBanner();
+        for (IndexPromotionBanner list : lists) {
+            System.out.println(list);
+        }
+    }
+
+    @Test
+    public void test04() {
+        IndexPromotionBanner ipb = new IndexPromotionBanner();
+        ipb.setName("活动2");
+        ipb.setOd(1);
+        ipb.setUrl("javascript;");
+        ipb.setImage("file:///E:/Desktop/Pictures/DailyFresh/adv02.jpg");
+        goodsDao.addPromotionBanner(ipb);
     }
 
 }

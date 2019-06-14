@@ -11,10 +11,14 @@ public class IndexPromotionBanner implements Serializable{
     private String name;    // 活动名称
     private String url;     // 活动链接
     private String image;   // 活动图片
-    private Integer index;  // 展示顺序
+    private Integer od;     // 展示顺序
 
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -41,12 +45,12 @@ public class IndexPromotionBanner implements Serializable{
         this.image = image;
     }
 
-    public Integer getIndex() {
-        return index;
+    public Integer getOd() {
+        return od;
     }
 
-    public void setIndex(Integer index) {
-        this.index = index;
+    public void setOd(Integer od) {
+        this.od = od;
     }
 
     @Override
@@ -56,7 +60,7 @@ public class IndexPromotionBanner implements Serializable{
                 ", name='" + name + '\'' +
                 ", url='" + url + '\'' +
                 ", image='" + image + '\'' +
-                ", index=" + index +
+                ", od=" + od +
                 '}';
     }
 }

@@ -2,6 +2,7 @@ package test;
 
 import cn.hnist.dao.AdminDao;
 import cn.hnist.pojo.Address;
+import cn.hnist.pojo.GoodsType;
 import cn.hnist.pojo.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -63,6 +64,14 @@ public class AdminDaoTest {
         List<Address> list = adminDao.findAllAddress(3);
         for (Address address : list) {
             System.out.println(address);
+        }
+    }
+
+    @Test
+    public void test08() {
+        List<GoodsType> allGoodsType = adminDao.findAllGoodsType();
+        for (GoodsType type : allGoodsType) {
+            System.out.println(type);
         }
     }
 
