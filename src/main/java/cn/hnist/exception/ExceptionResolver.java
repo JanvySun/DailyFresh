@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-//@Component("exceptionResolver")
+@Component("exceptionResolver")
 public class ExceptionResolver implements HandlerExceptionResolver{
     @Override
     public ModelAndView resolveException(HttpServletRequest httpServletRequest,
@@ -20,7 +20,7 @@ public class ExceptionResolver implements HandlerExceptionResolver{
         if (e instanceof WebException){
             we = (WebException) e;
         } else {
-            we = new WebException("未知异常");
+            we = new WebException("服务器正忙");
         }
         // 将异常信息输出在控制台
         we.printStackTrace();

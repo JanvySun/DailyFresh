@@ -1,6 +1,9 @@
 package cn.hnist.controller;
 
+import cn.hnist.pojo.User;
+import cn.hnist.service.RedisService;
 import cn.hnist.utils.CookieUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -8,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * 页面控制器
@@ -15,12 +19,33 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class View {
 
+    @Autowired
+    RedisService redisService;
+
     /**
      * 头部
      */
     @RequestMapping("/header")
     public String header() {
         return "header";
+    }
+
+    /**
+     * 查询部分
+     */
+    @RequestMapping("/searchBar")
+    public ModelAndView searchBar(HttpSession session) {
+        ModelAndView mv = new ModelAndView();
+        User user = (User) session.getAttribute("user");
+        Integer cart_count = 0;
+        if(user!=null){
+            // 如果用户登录
+            cart_count = redisService.getCount(user.getId());
+        }
+        mv.addObject("cart_count", cart_count);
+
+        mv.setViewName("searchBar");
+        return mv;
     }
 
     /**
@@ -58,14 +83,6 @@ public class View {
         mv.addObject("refer", next);
         mv.setViewName("login");
         return mv;
-    }
-
-    /**
-     * 主页面(index页面)
-     */
-    @RequestMapping("/")
-    public ModelAndView toIndex() {
-        return new ModelAndView("redirect:/index");
     }
 
     /**

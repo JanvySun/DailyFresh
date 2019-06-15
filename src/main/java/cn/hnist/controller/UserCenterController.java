@@ -1,9 +1,11 @@
 package cn.hnist.controller;
 
 import cn.hnist.pojo.Address;
+import cn.hnist.pojo.GoodsSKU;
 import cn.hnist.pojo.ResultInfo;
 import cn.hnist.pojo.User;
 import cn.hnist.service.AddressService;
+import cn.hnist.service.RedisService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,6 +30,9 @@ public class UserCenterController {
 
     @Autowired
     AddressService addressService;
+
+    @Autowired
+    RedisService redisService;
 
     /**
      * 用户中心-信息页面
@@ -45,6 +51,7 @@ public class UserCenterController {
         map.put("address", addr.getAddr());
 
         // 获取用户的历史浏览记录
+        mv.addObject("history", redisService.getUserHistory(user.getId()));
 
         mv.addAllObjects(map);
         mv.setViewName("userCenterInfo");

@@ -13,6 +13,16 @@ public class IndexTypeBanner implements Serializable{
     private Integer sku_id;         // 商品SKU
     private Integer type_id;        // 商品类型
 
+    private GoodsSKU sku;
+
+    public GoodsSKU getSku() {
+        return sku;
+    }
+
+    public void setSku(GoodsSKU sku) {
+        this.sku = sku;
+    }
+
     public Integer getId() {
         return id;
     }

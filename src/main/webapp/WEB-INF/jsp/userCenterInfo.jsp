@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="zh_CN">
 <head>
   <meta charset="UTF-8">
@@ -29,7 +30,7 @@
 </div>
 
 <div class="search_bar clearfix">
-  <a href="index.jsp" class="logo fl"><img src="${pageContext.request.contextPath}/images/logo.png"></a>
+  <a href="${pageContext.request.contextPath}/" class="logo fl"><img src="${pageContext.request.contextPath}/images/logo.png"></a>
   <div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;用户中心</div>
   <div class="search_con fr">
     <input type="text" class="input_text fl" name="" placeholder="搜索商品">
@@ -56,6 +57,23 @@
           <p id="user_phone"></p></li>
         <li><span>联系地址：</span>
           <p id="user_addr"></p></li>
+      </ul>
+    </div>
+
+    <h3 class="common_title2">最近浏览</h3>
+    <div class="has_view_list">
+      <ul class="goods_type_list clearfix">
+        <c:forEach items="${history}" var="sku">
+          <li>
+            <a href="${pageContext.request.contextPath}/goods/${sku.id}"><img src="${sku.image}"></a>
+            <h4><a href="${pageContext.request.contextPath}/goods/${sku.id}">${sku.name}</a></h4>
+            <div class="operate">
+              <span class="prize">¥${sku.price}</span>
+              <span class="unit">${sku.price}/${sku.unite}</span>
+              <a href="#" class="add_goods" title="加入购物车"></a>
+            </div>
+          </li>
+        </c:forEach>
       </ul>
     </div>
 

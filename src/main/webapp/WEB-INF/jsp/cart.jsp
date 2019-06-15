@@ -1,10 +1,12 @@
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="zh_CN">
 <head>
   <meta charset="UTF-8">
   <title>天天生鲜-购物车</title>
-  <link rel="stylesheet" type="text/css" href="css/reset.css">
-  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="../../css/reset.css">
+  <link rel="stylesheet" type="text/css" href="../../css/main.css">
 </head>
 <body>
 <div class="header_con">
@@ -15,24 +17,24 @@
         欢迎您：<em>张 山</em>
       </div>
       <div class="login_btn fl">
-        <a href="WEB-INF/jsp/login.jsp">登录</a>
+        <a href="login.jsp">登录</a>
         <span>|</span>
-        <a href="WEB-INF/jsp/register.jsp">注册</a>
+        <a href="register.jsp">注册</a>
       </div>
       <div class="user_link fl">
         <span>|</span>
-        <a href="WEB-INF/jsp/userCenterInfo.jsp">用户中心</a>
+        <a href="userCenterInfo.jsp">用户中心</a>
         <span>|</span>
-        <a href="cart.html">我的购物车</a>
+        <a href="cart.jsp">我的购物车</a>
         <span>|</span>
-        <a href="WEB-INF/jsp/userCenterOrder.jsp">我的订单</a>
+        <a href="userCenterOrder.jsp">我的订单</a>
       </div>
     </div>
   </div>
 </div>
 
 <div class="search_bar clearfix">
-  <a href="WEB-INF/jsp/index.jsp" class="logo fl"><img src="images/logo.png"></a>
+  <a href="index.jsp" class="logo fl"><img src="../../images/logo.png"></a>
   <div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;购物车</div>
   <div class="search_con fr">
     <input type="text" class="input_text fl" name="" placeholder="搜索商品">
@@ -51,7 +53,7 @@
 </ul>
 <ul class="cart_list_td clearfix">
   <li class="col01"><input type="checkbox" name="" checked></li>
-  <li class="col02"><img src="images/goods/goods012.jpg"></li>
+  <li class="col02"><img src="../../images/goods/goods012.jpg"></li>
   <li class="col03">奇异果<br><em>25.80元/500g</em></li>
   <li class="col04">500g</li>
   <li class="col05">25.80元</li>
@@ -68,7 +70,7 @@
 
 <ul class="cart_list_td clearfix">
   <li class="col01"><input type="checkbox" name="" checked></li>
-  <li class="col02"><img src="images/goods/goods003.jpg"></li>
+  <li class="col02"><img src="../../images/goods/goods003.jpg"></li>
   <li class="col03">大兴大棚草莓<br><em>16.80元/500g</em></li>
   <li class="col04">500g</li>
   <li class="col05">16.80元</li>
@@ -88,7 +90,7 @@
   <li class="col01"><input type="checkbox" name="" checked=""></li>
   <li class="col02">全选</li>
   <li class="col03">合计(不含运费)：<span>¥</span><em>42.60</em><br>共计<b>2</b>件商品</li>
-  <li class="col04"><a href="place_order.html">去结算</a></li>
+  <li class="col04"><a href="../../place_order.html">去结算</a></li>
 </ul>
 
 <div class="footer">
