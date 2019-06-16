@@ -38,7 +38,7 @@
     <span>|</span>
     <a href="${pageContext.request.contextPath}/user/info">用户中心</a>
     <span>|</span>
-    <a href="cart.jsp">我的购物车</a>
+    <a href="${pageContext.request.contextPath}/user/cart">我的购物车</a>
     <span>|</span>
     <a href="userCenterOrder.jsp">我的订单</a>
   </div>

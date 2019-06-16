@@ -81,7 +81,7 @@
                       alert(data.message);
                   }
               });
-          })
+          });
       });
   </script>
 

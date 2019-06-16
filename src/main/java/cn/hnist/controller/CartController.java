@@ -35,21 +35,91 @@ public class CartController {
         ResultInfo info = new ResultInfo();
         // 检验商品是否存在
         GoodsSKU sku = goodsService.findGoodsSKUById(skuId);
-        if(sku==null){
+        if (sku == null) {
             info.setFlag(false);
             info.setMessage("商品不存在");
         }
         // 校验用户是否登录
         User user = (User) session.getAttribute("user");
-        if(user == null){
+        if (user == null) {
             info.setFlag(false);
             info.setMessage("用户未登录，请先登录");
         } else {
             // 校验商品库存(这里懒得校验)
+            if (sku.getStock() < count) {
+                info.setFlag(false);
+                info.setMessage("商品库存不足");
+            } else {
+                redisService.addCartCount(user.getId(), skuId, count);
+                info.setFlag(true);
+                info.setMessage("添加成功");
+            }
+        }
 
-            redisService.addCartCount(user.getId(), skuId, count);
+        return info;
+    }
+
+    /**
+     * ajax响应购物车更新
+     */
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @ResponseBody
+    public ResultInfo cartUpdate(Integer skuId, Integer count, HttpSession session) {
+        ResultInfo info = new ResultInfo();
+
+        // 检验商品是否存在
+        GoodsSKU sku = goodsService.findGoodsSKUById(skuId);
+        if (sku == null) {
+            info.setFlag(false);
+            info.setMessage("商品不存在");
+        }
+
+        // 校验用户是否登录
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            info.setFlag(false);
+            info.setMessage("用户未登录，请先登录");
+        } else {
+            // 校验商品库存
+            if (sku.getStock() < count) {
+                info.setFlag(false);
+                info.setMessage("商品库存不足");
+            } else {
+                redisService.updataCart(user.getId(), skuId, count);
+                info.setFlag(true);
+                info.setMessage("添加成功");
+                info.setObj(redisService.getAllCartCount(user.getId()));
+            }
+        }
+
+        return info;
+    }
+
+    /**
+     * ajax响应购物车删除
+     */
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public ResultInfo cartDelete(Integer skuId, HttpSession session) {
+        ResultInfo info = new ResultInfo();
+        // 校验sku是否存在
+        GoodsSKU sku = goodsService.findGoodsSKUById(skuId);
+        if(sku==null){
+            info.setFlag(false);
+            info.setMessage("无效商品");
+            return info;
+        }
+        // 校验用户登录
+        User user = (User) session.getAttribute("user");
+        if(user == null){
+            // 用户未登录
+            info.setFlag(false);
+            info.setMessage("您尚未登陆，请登录");
+        } else {
+            redisService.delCart(user.getId(), skuId);
             info.setFlag(true);
-            info.setMessage("添加成功");
+            info.setMessage("删除成功");
+            info.setObj(redisService.getAllCartCount(user.getId()));
         }
 
         return info;

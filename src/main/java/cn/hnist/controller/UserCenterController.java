@@ -1,7 +1,7 @@
 package cn.hnist.controller;
 
 import cn.hnist.pojo.Address;
-import cn.hnist.pojo.GoodsSKU;
+import cn.hnist.pojo.CartVo;
 import cn.hnist.pojo.ResultInfo;
 import cn.hnist.pojo.User;
 import cn.hnist.service.AddressService;
@@ -112,5 +112,23 @@ public class UserCenterController {
             info.setMessage("添加失败");
         }
         return info;
+    }
+
+    /**
+     * 用户购物车页面
+     */
+    @RequestMapping("/cart")
+    public ModelAndView cartView(HttpSession session) {
+        ModelAndView mv = new ModelAndView();
+        // 获取登录用户
+        User user = (User) session.getAttribute("user");
+        // 获取用户购物车中的信息
+        List<CartVo> cartvos = redisService.getAllCartInfo(user.getId());
+        Integer count = redisService.getAllCartCount(user.getId());
+
+        mv.addObject("carts", cartvos);
+        mv.addObject("count", count);
+        mv.setViewName("cart");
+        return mv;
     }
 }

@@ -1,6 +1,7 @@
 package cn.hnist.service;
 
 import cn.hnist.dao.GoodsDao;
+import cn.hnist.pojo.CartVo;
 import cn.hnist.pojo.GoodsSKU;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,8 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Service("redisService")
 public class RedisService {
@@ -85,5 +88,59 @@ public class RedisService {
         }
         // 设置hash中对应sku_id的值
         jedis.hset(cartKey, Integer.toString(skuId), Integer.toString(count));
+    }
+
+    /**
+     * 获取用户所有购物车信息
+     */
+    public List<CartVo> getAllCartInfo(Integer id) {
+        List<CartVo> carts = new ArrayList<>();
+        String cartKey = String.format("cart_%d", id);
+        Map<String, String> cart_info = jedis.hgetAll(cartKey);
+        // map中的键为sku id
+        Set<String> keys = cart_info.keySet();
+        for (String key : keys) {
+            // map中的值为数量
+            String value = cart_info.get(key);
+            Integer count = Integer.valueOf(value);
+
+            CartVo vo = new CartVo();
+            vo.setCount(count);
+            GoodsSKU sku = goodsDao.findGoodsSKUById(Integer.valueOf(key));
+            vo.setSku(sku);
+            vo.setAmount(sku.getPrice()*count);
+            carts.add(vo);
+        }
+
+        return carts;
+    }
+
+    /**
+     * 更新购物车信息
+     */
+    public void updataCart(Integer id, Integer sku_id, Integer count) {
+        String cartKey = String.format("cart_%d", id);
+        jedis.hset(cartKey, String.valueOf(sku_id), String.valueOf(count));
+    }
+
+    /**
+     * 获取用户购物车总记录数
+     */
+    public Integer getAllCartCount(Integer id) {
+        String cartKey = String.format("cart_%d", id);
+        Integer count = 0;
+        List<String> counts = jedis.hvals(cartKey);
+        for (String s : counts) {
+            count += Integer.parseInt(s);
+        }
+        return count;
+    }
+
+    /**
+     * 删除购物车中某个商品
+     */
+    public void delCart(Integer id, Integer skuId) {
+        String cartKey = String.format("cart_%d", id);
+        jedis.hdel(cartKey, String.valueOf(skuId));
     }
 }
