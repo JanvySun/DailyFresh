@@ -28,6 +28,7 @@ public class UserController {
 
     /**
      * Ajax注册用户
+     *
      * @param json : 传入的json字符串
      * @return : 状态，json格式
      */
@@ -52,7 +53,7 @@ public class UserController {
         info.setFlag(userService.regist(user));
         if (!info.isFlag()) {
             // 注册失败
-            info.setMessage("注册失败");
+            info.setMessage("用户名已存在");
         }
 
         // 返回响应对象
@@ -61,6 +62,7 @@ public class UserController {
 
     /**
      * 通过激活码激活用户
+     *
      * @param code : 用户激活码
      * @return : 返回激活状态页面
      */
@@ -89,6 +91,7 @@ public class UserController {
 
     /**
      * ajax请求进行登录操作
+     *
      * @param json : 请求的json数据
      * @return : 返回json
      */
@@ -135,7 +138,7 @@ public class UserController {
             } else {
                 // 用户未激活
                 info.setFlag(false);
-                info.setMessage("您尚未激活，请查看邮件进行激活");
+                info.setMessage("您尚未激活");
             }
         }
 

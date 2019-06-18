@@ -3,6 +3,7 @@ package cn.hnist.service.impl;
 import cn.hnist.dao.AdminDao;
 import cn.hnist.pojo.*;
 import cn.hnist.service.AdminService;
+import cn.hnist.utils.Md5Util;
 import cn.hnist.utils.UuidUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,12 +19,19 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public ResultInfo login(String username, String password) {
         ResultInfo info = new ResultInfo();
-        User user = adminDao.findUserByNameAndPwd(username, password);
-        if(user==null){
+        String pwd = null;
+        // 加密密码
+        try {
+            pwd = Md5Util.encodeByMd5(password);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        User user = adminDao.findUserByNameAndPwd(username, pwd);
+        if (user == null) {
             info.setFlag(false);
             info.setMessage("用户名或密码错误");
         } else {
-            if(user.getIs_superuser()=='N'){
+            if (user.getIs_superuser() == 'N') {
                 info.setFlag(false);
                 info.setMessage("该用户不是管理员用户");
             } else {
@@ -74,6 +82,12 @@ public class AdminServiceImpl implements AdminService {
             // 设置激活码
             user.setCode(UuidUtil.getUuid());
             user.setIs_superuser('N');
+            // 加密密码
+            try {
+                user.setPassword(Md5Util.encodeByMd5(user.getPassword()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             // 保存用户信息
             adminDao.addUser(user);
             info.setFlag(true);
@@ -96,16 +110,22 @@ public class AdminServiceImpl implements AdminService {
         ResultInfo info = new ResultInfo();
         // 根据ID查询用户
         User findIdUser = adminDao.findUserById(user.getId());
-        // 根据用户名查询用户
-        User findNameUser = adminDao.findUserByName(user.getUsername());
-        if (findIdUser == null || findNameUser != null) {
+        if (findIdUser == null) {
             // 未查到用户或者有重复的用户名，更新失败
             info.setFlag(false);
-            info.setMessage("未找到用户或用户名已存在");
+            info.setMessage("未找到该用户");
         } else {
-            // 更新用户信息
-            adminDao.updateUser(user);
-            info.setFlag(true);
+            // 加密密码
+            try {
+                user.setPassword(Md5Util.encodeByMd5(user.getPassword()));
+                // 更新用户信息
+                adminDao.updateUser(user);
+                info.setFlag(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+                info.setFlag(false);
+                info.setMessage("用户名已存在");
+            }
         }
         return info;
     }
@@ -316,7 +336,7 @@ public class AdminServiceImpl implements AdminService {
     public ResultInfo updateIndexGoodsBanner(IndexGoodsBanner indexGoodsBanner) {
         ResultInfo info = new ResultInfo();
         GoodsSKU sku = adminDao.findGoodsSkuById(indexGoodsBanner.getSku_id());
-        if(sku == null){
+        if (sku == null) {
             info.setFlag(false);
             info.setMessage("更新失败");
         } else {
@@ -337,7 +357,7 @@ public class AdminServiceImpl implements AdminService {
         ResultInfo info = new ResultInfo();
         // 根据id查询Banner
         IndexGoodsBanner igb = adminDao.findIndexGoodsBannerById(banner.getId());
-        if(igb!=null){
+        if (igb != null) {
             info.setFlag(false);
             info.setMessage("Banner已存在");
         } else {

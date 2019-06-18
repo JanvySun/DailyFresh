@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * 首页分类商品展示模型类
  */
-public class IndexTypeBanner implements Serializable{
+public class IndexTypeBanner implements Serializable {
 
     private Integer id;
     private Integer display_type;   // 展示类型(0:标题展示；1:图片展示)
@@ -63,14 +63,4 @@ public class IndexTypeBanner implements Serializable{
         this.type_id = type_id;
     }
 
-    @Override
-    public String toString() {
-        return "IndexTypeBanner{" +
-                "id=" + id +
-                ", display_type=" + display_type +
-                ", od=" + od +
-                ", sku_id=" + sku_id +
-                ", type_id=" + type_id +
-                '}';
-    }
 }

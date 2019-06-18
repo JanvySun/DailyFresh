@@ -7,6 +7,6 @@
   </form>
 </div>
 <div class="guest_cart fr">
-  <a href="#" class="cart_name fl">我的购物车</a>
+  <a href="${pageContext.request.contextPath}/user/cart" class="cart_name fl" id="cart">我的购物车</a>
   <div class="goods_count fl">${cart_count}</div>
 </div>

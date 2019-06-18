@@ -22,10 +22,10 @@
           });
 
           if ("${sort}" == "") {
-              $("#sort_defalt").prop("href", "#");
+              $("#sort_defalt").prop("href", "javascript:void(0);");
               $("#sort_defalt").prop("class", "active");
-              $("#sort_price").prop("href", "#");
-              $("#sort_sales").prop("href", "#");
+              $("#sort_price").prop("href", "javascript:void(0);");
+              $("#sort_sales").prop("href", "javascript:void(0);");
               $("#sort_defalt").click(function () {
                   $("#sort_defalt").prop("class", "active");
                   $("#sort_price").prop("class", "");
@@ -51,6 +51,53 @@
                   $("#sort_defalt").prop("class", "active");
               }
           }
+
+          $('.add_goods').click(function () {
+              // 获取商品数量
+              var $this = $(this);
+              var sku_id = $this.attr("sku_id");
+              // 发送ajax请求，访问/cart/add, 传递sku_id和count
+              var params = {"skuId":sku_id, "count": 1};
+              $.post("${pageContext.request.contextPath}/cart/add", params, function (data) {
+                  if (data.flag == true) {
+
+                      var $cart = $('#cart');
+                      var $count = $('#cart').next();
+                      var $btn = $this;
+                      var $point = $('#add_jump');
+
+                      var $w01 = $btn.outerWidth();
+                      var $h01 = $btn.outerHeight();
+
+                      var $w02 = $cart.outerWidth();
+                      var $h02 = $cart.outerHeight();
+
+                      var oPos01 = $btn.offset();
+                      var oPos02 = $cart.offset();
+
+                      $point.css({
+                          'left': oPos01.left + parseInt($w01 / 2) - 8,
+                          'top': oPos01.top + parseInt($h01 / 2) - 8
+                      });
+                      $point.show();
+                      $point.stop().animate({
+                              'left': oPos02.left + parseInt($w02 / 2) - 8,
+                              'top': oPos02.top + parseInt($h01 / 2) - 8
+                          },
+                          500, function () {
+                              $point.hide();
+                              $count.html(data.obj);
+                          });
+                  } else {
+                      $("#pop_msg").text(data.message);
+                      $('.popup_con').fadeIn('fast');
+                  }
+              });
+          });
+
+          $(document).click(function () {
+              $('.popup_con').fadeOut();
+          });
       });
   </script>
 </head>
@@ -86,9 +133,9 @@
 </div>
 
 <div class="breadcrumb">
-  <a href="#">全部分类</a>
+  <a href="javascript:void(0);">全部分类</a>
   <span>></span>
-  <a href="#">新鲜水果</a>
+  <a href="javascript:void(0);">新鲜水果</a>
 </div>
 
 <div class="main_wrap clearfix">
@@ -123,8 +170,8 @@
           <h4><a href="${pageContext.request.contextPath}/gooods/${sku.id}">${sku.name}</a></h4>
           <div class="operate">
             <span class="prize">￥${sku.price}</span>
-            <span class="unit">${sku.price}/${sku.unite}</span>
-            <a href="#" class="add_goods" title="加入购物车"></a>
+            <span class="unit">销量:${sku.sales}</span>
+            <a href="javascript:void(0);" class="add_goods" sku_id="${sku.id}" title="加入购物车"></a>
           </div>
         </li>
       </c:forEach>
@@ -134,6 +181,14 @@
 </div>
 
 <div class="footer" id="footer"></div>
+
+<div class="popup_con">
+  <div class="popup">
+    <p id="pop_msg"></p>
+  </div>
+  <div class="mask"></div>
+</div>
+<div class="add_jump" id="add_jump"></div>
 
 </body>
 </html>

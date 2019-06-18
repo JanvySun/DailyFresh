@@ -16,16 +16,10 @@ public class ExceptionResolver implements HandlerExceptionResolver{
         // 创建ModelAndView对象
         ModelAndView mv = new ModelAndView();
 
-        WebException we;
-        if (e instanceof WebException){
-            we = (WebException) e;
-        } else {
-            we = new WebException("服务器正忙");
-        }
         // 将异常信息输出在控制台
-        we.printStackTrace();
+        e.printStackTrace();
 
-        mv.addObject("info", we.getMessage());
+        mv.addObject("info", "服务器正忙...");
         mv.addObject("title","服务器异常");
         mv.setViewName("info");
         return mv;

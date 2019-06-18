@@ -23,7 +23,6 @@
           var check_flag = true;
           $('#allow').click(function () {
               check_flag = $(this).is(':checked');
-              alert(check_flag);
               if (check_flag) {
                   $(this).siblings('span').hide();
               }
@@ -58,13 +57,18 @@
                               location.href="${pageContext.request.contextPath}/registOk";
                           } else {
                               // 注册失败
-                              alert(data.message);
+                              $("#pop_msg").text(data.message);
+                              $('.popup_con').fadeIn('fast');
                           }
                       }
                   });
               }
               // 不让表单进行提交，自己处理
               return false;
+          });
+
+          $(document).click(function(){
+              $('.popup_con').fadeOut();
           });
       });
 
@@ -90,22 +94,22 @@
         <ul>
           <li>
             <label>用户名:</label>
-            <input type="text" name="user_name" id="user_name" value="12345"/>
+            <input type="text" name="user_name" id="user_name" value=""/>
             <span class="error_tip">用户名需输入5-20位</span>
           </li>
           <li>
             <label>密码:</label>
-            <input type="password" name="pwd" id="pwd" value="12345"/>
+            <input type="password" name="pwd" id="pwd" value=""/>
             <span class="error_tip">密码5~20位</span>
           </li>
           <li>
             <label>确认密码:</label>
-            <input type="password" name="cpwd" id="cpwd" value="12345"/>
+            <input type="password" name="cpwd" id="cpwd" value=""/>
             <span class="error_tip">两次密码不一致</span>
           </li>
           <li>
             <label>邮箱:</label>
-            <input type="text" name="email" id="email" value="qwer@asdf.com"/>
+            <input type="text" name="email" id="email" value=""/>
             <span class="error_tip">邮件格式不正确</span>
           </li>
           <li class="agreement">
@@ -125,6 +129,13 @@
 </div>
 
 <div class="footer no-mp" id="footer"></div>
+
+<div class="popup_con">
+  <div class="popup">
+    <p id="pop_msg"></p>
+  </div>
+  <div class="mask"></div>
+</div>
 
 </body>
 </html>

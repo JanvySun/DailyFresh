@@ -30,11 +30,14 @@
 </div>
 
 <div class="search_bar clearfix">
-  <a href="${pageContext.request.contextPath}/" class="logo fl"><img src="${pageContext.request.contextPath}/images/logo.png"></a>
+  <a href="${pageContext.request.contextPath}/" class="logo fl"><img
+      src="${pageContext.request.contextPath}/images/logo.png"></a>
   <div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;用户中心</div>
   <div class="search_con fr">
-    <input type="text" class="input_text fl" name="" placeholder="搜索商品">
-    <input type="button" class="input_btn fr" name="" value="搜索">
+    <form method="post" action="${pageContext.request.contextPath}/find">
+      <input type="text" class="input_text fl" name="findName" placeholder="搜索商品">
+      <input type="submit" class="input_btn fr" value="搜索">
+    </form>
   </div>
 </div>
 
@@ -79,7 +82,6 @@
 
   </div>
 </div>
-
 
 <div class="footer" id="footer"></div>
 

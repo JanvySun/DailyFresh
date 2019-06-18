@@ -93,7 +93,8 @@
                       // 更新商品总件数
                       $(".total_count").children("em").text(total);
                   } else {
-                      alert(data.message);
+                      $("#pop_msg").text(data.message);
+                      $('.popup_con').fadeIn('fast');
                   }
               });
           });
@@ -125,7 +126,8 @@
                       // 更新商品总件数
                       $(".total_count").children("em").text(total);
                   } else {
-                      alert(data.message);
+                      $("#pop_msg").text(data.message);
+                      $('.popup_con').fadeIn('fast');
                   }
               });
           });
@@ -166,6 +168,8 @@
                       $(".total_count").children("em").text(total);
                   } else {
                       alert(data.message);
+                      //$("#pop_msg").text(data.message);
+                      //$('.popup_con').fadeIn('fast');
                       $this.val(pre_count);
                   }
               });
@@ -175,24 +179,29 @@
           $(".cart_list_td").children(".col08").children('a').click(function () {
               var $this = $(this);
               var sku_id = $this.parents('ul').find('.num_show').prop("name");
-              var params = {'skuId':sku_id};
+              var params = {'skuId': sku_id};
               var sku_ul = $this.parents('ul');
               var total = 0;
               $.post("${pageContext.request.contextPath}/cart/delete", params, function (data) {
-                  if(data.flag == true){
+                  if (data.flag == true) {
                       // 删除成功
                       total = data.obj;
                       sku_ul.remove();
                       // 获取sku_ul的选中状态
                       var is_checked = sku_ul.find(":checkbox").prop("checked");
-                      if(is_checked){
+                      if (is_checked) {
                           cal_cart_info();
                       }
                       $(".total_count").children("em").text(total);
                   } else {
-                      alert(data.message);
+                      $("#pop_msg").text(data.message);
+                      $('.popup_con').fadeIn('fast');
                   }
               })
+          });
+
+          $(document).click(function () {
+              $('.popup_con').fadeOut();
           });
       });
   </script>
@@ -227,33 +236,45 @@
   <li class="col06">操作</li>
 </ul>
 
-<c:forEach items="${carts}" var="cart">
-  <ul class="cart_list_td clearfix">
-    <li class="col01"><input type="checkbox" name="" checked></li>
-    <li class="col02"><img src="${cart.sku.image}"></li>
-    <li class="col03">${cart.sku.name}<br><em>${cart.sku.price}元/${cart.sku.unite}</em></li>
-    <li class="col04">${cart.sku.unite}</li>
-    <li class="col05">${cart.sku.price}元</li>
-    <li class="col06">
-      <div class="num_add">
-        <a href="javascript:void(0);" class="add fl">+</a>
-        <input type="text" name="${cart.sku.id}" class="num_show fl" value="${cart.count}">
-        <a href="javascript:void(0);" class="minus fl">-</a>
-      </div>
-    </li>
-    <li class="col07">${cart.amount}元</li>
-    <li class="col08"><a href="javascript:void(0);">删除</a></li>
-  </ul>
-</c:forEach>
+<form method="post" action="${pageContext.request.contextPath}/user/order/place">
+  <c:forEach items="${carts}" var="cart">
+    <ul class="cart_list_td clearfix">
+      <li class="col01"><input type="checkbox" name="sku_ids" value="${cart.sku.id}" checked></li>
+      <li class="col02"><img src="${cart.sku.image}"></li>
+      <li class="col03">${cart.sku.name}<br><em>${cart.sku.price}元/${cart.sku.unite}</em></li>
+      <li class="col04">${cart.sku.unite}</li>
+      <li class="col05">${cart.sku.price}元</li>
+      <li class="col06">
+        <div class="num_add">
+          <a href="javascript:void(0);" class="add fl">+</a>
+          <input type="text" name="${cart.sku.id}" class="num_show fl" value="${cart.count}">
+          <a href="javascript:void(0);" class="minus fl">-</a>
+        </div>
+      </li>
+      <li class="col07">${cart.amount}元</li>
+      <li class="col08"><a href="javascript:void(0);">删除</a></li>
+    </ul>
+  </c:forEach>
 
-<ul class="settlements">
-  <li class="col01"><input type="checkbox" name="" checked=""></li>
-  <li class="col02">全选</li>
-  <li class="col03">合计(不含运费)：<span>¥</span><em>0.00</em><br>共计<b>0</b>件商品</li>
-  <li class="col04"><a href="../../place_order.html">去结算</a></li>
-</ul>
+  <ul class="settlements">
+    <li class="col01"><input type="checkbox" name="" checked=""></li>
+    <li class="col02">全选</li>
+    <li class="col03">合计(不含运费)：<span>¥</span><em>0.00</em><br>共计<b>0</b>件商品</li>
+    <li class="col04">
+      <input type="submit" value="去结算"
+             style="border: 0px; height: 100%; width: 100%; background-color: #ff3d3d;
+                    text-align: center; line-height: 78px; color: #fff; font-size: 24px;"/>
+    </li>
+  </ul>
+</form>
 
 <div class="footer" id="footer"></div>
+<div class="popup_con">
+  <div class="popup">
+    <p id="pop_msg"></p>
+  </div>
+  <div class="mask"></div>
+</div>
 
 </body>
 </html>

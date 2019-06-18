@@ -1,10 +1,8 @@
 package cn.hnist.controller;
 
-import cn.hnist.pojo.Address;
-import cn.hnist.pojo.CartVo;
-import cn.hnist.pojo.ResultInfo;
-import cn.hnist.pojo.User;
+import cn.hnist.pojo.*;
 import cn.hnist.service.AddressService;
+import cn.hnist.service.OrderService;
 import cn.hnist.service.RedisService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +33,9 @@ public class UserCenterController {
     @Autowired
     RedisService redisService;
 
+    @Autowired
+    OrderService orderService;
+
     /**
      * 用户中心-信息页面
      */
@@ -47,8 +49,13 @@ public class UserCenterController {
         Address addr = addressService.findDefaultAddress(user.getId());
         // 获取用户的个人信息
         map.put("username", user.getUsername());
-        map.put("phone", addr.getPhone());
-        map.put("address", addr.getAddr());
+        if (addr == null) {
+            map.put("phone", "无默认");
+            map.put("address", "无默认");
+        } else {
+            map.put("phone", addr.getPhone());
+            map.put("address", addr.getAddr());
+        }
 
         // 获取用户的历史浏览记录
         mv.addObject("history", redisService.getUserHistory(user.getId()));
@@ -62,9 +69,26 @@ public class UserCenterController {
      * 用户中心-订单页面
      */
     @RequestMapping("/order")
-    public String orderView() {
+    public ModelAndView orderView(HttpSession session) {
+        ModelAndView mv = new ModelAndView();
+
+        List<OrderVo> orderVos = new ArrayList<>();
         // 获取用户的订单信息
-        return "userCenterOrder";
+        User user = (User) session.getAttribute("user");
+        List<OrderInfo> orderInfos = orderService.findOrderInfoByUserId(user.getId());
+        for (OrderInfo info : orderInfos) {
+            OrderVo vo = new OrderVo();
+            vo.setOrderInfo(info);
+            List<OrderGoods> goods = orderService.findOrderGoodsByOrderId(info.getOrder_id());
+            vo.setOrderGoods(goods);
+            vo.setStatus_name(info.getOrder_status());
+            orderVos.add(vo);
+        }
+
+        // 返回页面
+        mv.addObject("orderVos", orderVos);
+        mv.setViewName("userCenterOrder");
+        return mv;
     }
 
     /**
@@ -78,7 +102,7 @@ public class UserCenterController {
         // 获取用户的收获地址
         Address addr = addressService.findDefaultAddress(user.getId());
 
-        mv.addObject("address",addr);
+        mv.addObject("address", addr);
         mv.setViewName("userCenterSite");
         return mv;
     }
@@ -87,7 +111,8 @@ public class UserCenterController {
      * 地址页处理
      */
     @RequestMapping("/addressHandle")
-    public @ResponseBody ResultInfo addressHandle(@RequestBody String json, HttpSession session) throws IOException {
+    public @ResponseBody
+    ResultInfo addressHandle(@RequestBody String json, HttpSession session) throws IOException {
 
         ResultInfo info = new ResultInfo();
 

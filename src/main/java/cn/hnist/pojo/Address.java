@@ -71,16 +71,4 @@ public class Address implements Serializable {
         this.user_id = user_id;
     }
 
-    @Override
-    public String toString() {
-        return "Address{" +
-                "id=" + id +
-                ", receiver='" + receiver + '\'' +
-                ", addr='" + addr + '\'' +
-                ", zip_code='" + zip_code + '\'' +
-                ", phone='" + phone + '\'' +
-                ", is_default=" + is_default +
-                ", user_id=" + user_id +
-                '}';
-    }
 }

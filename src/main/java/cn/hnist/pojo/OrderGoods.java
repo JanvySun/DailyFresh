@@ -11,6 +11,15 @@ public class OrderGoods {
     private String comment;     // 评论
     private String order_id;    // 订单id
     private Integer sku_id;     // sku id
+    private GoodsSKU sku;
+
+    public GoodsSKU getSku() {
+        return sku;
+    }
+
+    public void setSku(GoodsSKU sku) {
+        this.sku = sku;
+    }
 
     public Integer getId() {
         return id;
@@ -60,15 +69,4 @@ public class OrderGoods {
         this.sku_id = sku_id;
     }
 
-    @Override
-    public String toString() {
-        return "OrderGoods{" +
-                "id=" + id +
-                ", count=" + count +
-                ", price=" + price +
-                ", comment='" + comment + '\'' +
-                ", order_id='" + order_id + '\'' +
-                ", sku_id=" + sku_id +
-                '}';
-    }
 }

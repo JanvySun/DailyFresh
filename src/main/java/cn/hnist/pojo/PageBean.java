@@ -53,14 +53,4 @@ public class PageBean<T> {
         this.list = list;
     }
 
-    @Override
-    public String toString() {
-        return "PageBean{" +
-                "totalCount=" + totalCount +
-                ", totalPage=" + totalPage +
-                ", currentPage=" + currentPage +
-                ", rows=" + rows +
-                ", list=" + list +
-                '}';
-    }
 }

@@ -30,4 +30,5 @@ public class FindGoodsController {
         mv.setViewName("list");
         return mv;
     }
+
 }

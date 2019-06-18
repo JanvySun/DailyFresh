@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 /**
  * 拦截器，该拦截器拦截/admin/* 的内容
  */
-public class AdminInterceptor implements HandlerInterceptor{
+public class AdminInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request,
@@ -29,7 +29,7 @@ public class AdminInterceptor implements HandlerInterceptor{
             return true;
 
         // 未登录且不是指定的页面，转发到登录页面
-        response.sendRedirect(request.getContextPath()+"/admin/login");
+        response.sendRedirect(request.getContextPath() + "/admin/login");
         return false;
     }
 }

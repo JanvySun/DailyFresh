@@ -42,7 +42,9 @@
 <body>
 
 <div id="box">
-  <a><img src="${pageContext.request.contextPath}/images/logo02.png"></a>
+  <a href="${pageContext.request.contextPath}/admin/index">
+    <img src="${pageContext.request.contextPath}/images/logo02.png">
+  </a>
 </div>
 <div class="reg_slogan">商品【${goodsName}】SKU列表(管理页面)</div>
 

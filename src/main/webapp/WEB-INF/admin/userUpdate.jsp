@@ -100,7 +100,9 @@
 <body>
 
 <div id="box">
-  <a><img src="${pageContext.request.contextPath}/images/logo02.png"></a>
+  <a href="${pageContext.request.contextPath}/admin/index">
+    <img src="${pageContext.request.contextPath}/images/logo02.png">
+  </a>
 </div>
 <div class="reg_slogan">修改用户(管理页面)</div>
 
@@ -117,7 +119,7 @@
 
     <div class="form-group">
       <label for="pwd">密码：</label>
-      <input type="password" class="form-control" id="pwd" name="pwd" value="${user.password}" placeholder="请输入密码"/>
+      <input type="password" class="form-control" id="pwd" name="pwd" placeholder="请输入密码"/>
     </div>
 
     <div class="form-group">

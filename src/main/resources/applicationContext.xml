@@ -53,6 +53,7 @@
             <tx:method name="*" read-only="false" propagation="REQUIRED"/>
         </tx:attributes>
     </tx:advice>
+
     <!--使用AOP对业务层方法进行事务增强-->
     <aop:config>
         <!--对业务层中的所有实现类中的所有方法进行增强-->

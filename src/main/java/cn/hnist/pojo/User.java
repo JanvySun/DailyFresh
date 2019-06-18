@@ -71,16 +71,4 @@ public class User implements Serializable {
         this.is_superuser = is_superuser;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", status=" + status +
-                ", code='" + code + '\'' +
-                ", id=" + id +
-                ", is_superuser=" + is_superuser +
-                '}';
-    }
 }

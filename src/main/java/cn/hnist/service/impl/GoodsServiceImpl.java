@@ -109,4 +109,9 @@ public class GoodsServiceImpl implements GoodsService {
     public List<GoodsSKU> findGoodsSKUByName(String findName) {
         return goodsDao.findGoodsSKUByName(findName);
     }
+
+    @Override
+    public void updateSku(GoodsSKU sku) {
+        goodsDao.updataSkuStokeAndSales(sku);
+    }
 }

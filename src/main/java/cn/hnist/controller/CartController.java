@@ -45,7 +45,7 @@ public class CartController {
             info.setFlag(false);
             info.setMessage("用户未登录，请先登录");
         } else {
-            // 校验商品库存(这里懒得校验)
+            // 校验商品库存
             if (sku.getStock() < count) {
                 info.setFlag(false);
                 info.setMessage("商品库存不足");
@@ -53,6 +53,7 @@ public class CartController {
                 redisService.addCartCount(user.getId(), skuId, count);
                 info.setFlag(true);
                 info.setMessage("添加成功");
+                info.setObj(redisService.getAllCartCount(user.getId()));
             }
         }
 
@@ -104,14 +105,14 @@ public class CartController {
         ResultInfo info = new ResultInfo();
         // 校验sku是否存在
         GoodsSKU sku = goodsService.findGoodsSKUById(skuId);
-        if(sku==null){
+        if (sku == null) {
             info.setFlag(false);
             info.setMessage("无效商品");
             return info;
         }
         // 校验用户登录
         User user = (User) session.getAttribute("user");
-        if(user == null){
+        if (user == null) {
             // 用户未登录
             info.setFlag(false);
             info.setMessage("您尚未登陆，请登录");

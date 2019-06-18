@@ -9,9 +9,11 @@
   <script>
 
       $(function () {
+
           $.get("${pageContext.request.contextPath}/footer", function (data) {
               $("#footer").html(data);
           });
+
           // 表单提交事件
           $("#login_form").submit(function () {
               // 获取用户名和密码
@@ -32,12 +34,17 @@
                           location.href = "${pageContext.request.contextPath}" + next;
                       } else {
                           // 登录失败
-                          alert(data.message);
+                          $("#pop_msg").text(data.message);
+                          $('.popup_con').fadeIn('fast');
                       }
                   }
               });
               // 不让表单提交，我们自己进行处理
               return false;
+          });
+
+          $(document).click(function(){
+              $('.popup_con').fadeOut();
           });
 
       });
@@ -80,6 +87,13 @@
 </div>
 
 <div class="footer no-mp" id="footer"></div>
+
+<div class="popup_con">
+  <div class="popup">
+    <p id="pop_msg"></p>
+  </div>
+  <div class="mask"></div>
+</div>
 
 </body>
 </html>

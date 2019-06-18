@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * 商品SKU模型类
  */
-public class GoodsSKU implements Serializable{
+public class GoodsSKU implements Serializable {
 
     private Integer id;
     private String name;        // 商品名称
@@ -107,20 +107,4 @@ public class GoodsSKU implements Serializable{
         this.type_id = type_id;
     }
 
-    @Override
-    public String toString() {
-        return "GoodsSKU{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", desc='" + desc + '\'' +
-                ", price=" + price +
-                ", unite='" + unite + '\'' +
-                ", image='" + image + '\'' +
-                ", stock=" + stock +
-                ", sales=" + sales +
-                ", status=" + status +
-                ", goods_id=" + goods_id +
-                ", type_id=" + type_id +
-                '}';
-    }
 }

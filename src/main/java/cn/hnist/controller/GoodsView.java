@@ -59,7 +59,7 @@ public class GoodsView {
         // 如果用户已经登录，则获取用户的购物车数量
         User user = (User) session.getAttribute("user");
         if (user != null) {
-            cart_count = redisService.getCount(user.getId());
+            cart_count = redisService.getAllCartCount(user.getId());
         }
         mv.addObject("cartCount", cart_count);
 
@@ -98,7 +98,7 @@ public class GoodsView {
         User user = (User) session.getAttribute("user");
         if (user != null) {
             // 获取购物车数目
-            cart_count = redisService.getCount(user.getId());
+            cart_count = redisService.getAllCartCount(user.getId());
             // 添加历史浏览记录
             redisService.addHistory(user.getId(), id);
         }
@@ -117,8 +117,8 @@ public class GoodsView {
         mv.addObject("types", goodsService.findAllGoodsType());
         // 获取排序: 1(按价格排序) 2(按销量排序) 其他(默认按id排序)
         int s = sort == null ? 0 : sort;
-        mv.addObject("type_id",id);
-        mv.addObject("sort",s);
+        mv.addObject("type_id", id);
+        mv.addObject("sort", s);
         List<GoodsSKU> skus;
         if (s == 1) {
             skus = goodsService.findGoodsSKUByTypeAndPriceSort(id);

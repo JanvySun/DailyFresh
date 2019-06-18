@@ -45,7 +45,7 @@ public final class CookieUtils {
      */
     public static void delCookie(HttpServletRequest request, HttpServletResponse response, String name) {
         Cookie cookie = getCookie(request, name);
-        if (null!=cookie){
+        if (null != cookie) {
             cookie.setValue(null);
             cookie.setMaxAge(0);
             cookie.setPath("/");

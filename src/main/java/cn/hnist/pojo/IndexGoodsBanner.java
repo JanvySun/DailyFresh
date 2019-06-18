@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * 首页轮播商品展示模型类
  */
-public class IndexGoodsBanner implements Serializable{
+public class IndexGoodsBanner implements Serializable {
 
     private Integer id;
     private String image;   // 图片
@@ -44,13 +44,4 @@ public class IndexGoodsBanner implements Serializable{
         this.sku_id = sku_id;
     }
 
-    @Override
-    public String toString() {
-        return "IndexGoodsBanner{" +
-                "id=" + id +
-                ", image='" + image + '\'' +
-                ", od=" + od +
-                ", sku_id=" + sku_id +
-                '}';
-    }
 }

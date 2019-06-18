@@ -26,7 +26,7 @@ public final class Md5Util {
     }
 
     /**
-     * 将byte[]转在16进制字符串
+     * 将byte[]转成16进制字符串
      */
     private static String byteArrayToHexString(byte[] byteArray) {
         StringBuilder sb = new StringBuilder();
@@ -41,7 +41,7 @@ public final class Md5Util {
     }
 
     /**
-     * 将byte转在16进制字符串
+     * 将byte转成16进制字符串
      */
     private static String byteToHexString(byte b) {//-31转成e1，10转成0a，。。。
         //将byte类型赋给int类型

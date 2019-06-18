@@ -18,8 +18,9 @@
       color: #69a81e;
       margin-bottom: 30px;
     }
-    #box{
-      margin:20px 0 0 40px;
+
+    #box {
+      margin: 20px 0 0 40px;
     }
   </style>
 
@@ -76,8 +77,8 @@
               if (check_username() && check_pwd() && check_email()) {
                   $.post("${pageContext.request.contextPath}/admin/user/addHandle", $(this).serialize(),
                       function (data) {
-                          if (data.flag==true){
-                              location.href="${pageContext.request.contextPath}/admin/user/list";
+                          if (data.flag == true) {
+                              location.href = "${pageContext.request.contextPath}/admin/user/list";
                           } else {
                               alert(data.message);
                           }
@@ -94,7 +95,9 @@
 <body>
 
 <div id="box">
-  <a><img src="${pageContext.request.contextPath}/images/logo02.png"></a>
+  <a href="${pageContext.request.contextPath}/admin/index">
+    <img src="${pageContext.request.contextPath}/images/logo02.png">
+  </a>
 </div>
 <div class="reg_slogan">添加用户(管理页面)</div>
 

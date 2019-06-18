@@ -16,6 +16,7 @@
     td, th {
       text-align: center;
     }
+
     .reg_slogan {
       height: 30px;
       text-align: left;
@@ -23,8 +24,9 @@
       color: #69a81e;
       margin: 15px 0 0 150px;
     }
-    #box{
-      margin:10px 0 0 20px;
+
+    #box {
+      margin: 10px 0 0 20px;
     }
   </style>
 
@@ -39,7 +41,7 @@
 
       $(function () {
 
-          if("${addr_list}" == "[]"){
+          if ("${addr_list}" == "[]") {
               alert("该用户无地址");
           }
 
@@ -80,7 +82,9 @@
 <body>
 
 <div id="box">
-  <a><img src="${pageContext.request.contextPath}/images/logo02.png"></a>
+  <a href="${pageContext.request.contextPath}/admin/index">
+    <img src="${pageContext.request.contextPath}/images/logo02.png">
+  </a>
 </div>
 <div class="reg_slogan">用户【${username}】地址列表(管理页面)</div>
 
@@ -111,7 +115,8 @@
           <td>${addr.zip_code}</td>
           <td>${addr.phone}</td>
           <td>${addr.is_default}</td>
-          <td><a class="btn btn-default btn-sm" href="${pageContext.request.contextPath}/admin/address/update/${addr.id}">修改</a>&nbsp;
+          <td><a class="btn btn-default btn-sm"
+                 href="${pageContext.request.contextPath}/admin/address/update/${addr.id}">修改</a>&nbsp;
             <a class="btn btn-default btn-sm" href="javascript:deleteAddr(${addr.id});">删除</a></td>
         </tr>
       </c:forEach>

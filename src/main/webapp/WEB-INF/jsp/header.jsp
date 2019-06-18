@@ -40,6 +40,6 @@
     <span>|</span>
     <a href="${pageContext.request.contextPath}/user/cart">我的购物车</a>
     <span>|</span>
-    <a href="userCenterOrder.jsp">我的订单</a>
+    <a href="${pageContext.request.contextPath}/user/order">我的订单</a>
   </div>
 </div>

@@ -28,7 +28,7 @@ public class AddressServiceImpl implements AddressService {
 
         // 根据用户id查询其所有地址
         List<Address> addresses = addressDao.findUserAddress(addr.getUser_id());
-        if (addresses == null) {
+        if (addresses.size() == 0) {
             // 用户没有默认地址
             addr.setIs_default('Y');
         } else {
@@ -44,7 +44,7 @@ public class AddressServiceImpl implements AddressService {
         // 根据用户id查询默认地址
         List<Address> addresses = addressDao.findUserAddress(id);
         for (Address address : addresses) {
-            if(address.getIs_default() == 'Y'){
+            if (address.getIs_default() == 'Y') {
                 return address;
             }
         }

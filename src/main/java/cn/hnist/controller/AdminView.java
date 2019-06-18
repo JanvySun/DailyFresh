@@ -53,7 +53,7 @@ public class AdminView {
 
         // 获取参数
         Integer currentPage = (page == null || page < 1) ? 1 : page;
-        Integer rows = 5;
+        Integer rows = 6;
 
         // 查询用户表的所有数据，发给页面
         PageBean<User> pb = adminService.findUserByPage(currentPage, rows);
@@ -195,7 +195,7 @@ public class AdminView {
 
         // 获取参数
         Integer currentPage = (page == null || page < 1) ? 1 : page;
-        Integer rows = 5;
+        Integer rows = 6;
         Map<String, String> condition = request.getParameterMap();
 
         // 查询goods表的所有数据，发给页面

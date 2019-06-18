@@ -18,8 +18,9 @@
       color: #69a81e;
       /*margin: 10px 0 10px 150px;*/
     }
-    #box{
-      margin:10px 0 0 20px;
+
+    #box {
+      margin: 10px 0 0 20px;
     }
   </style>
 
@@ -27,13 +28,14 @@
       //切换验证码方法
       function refreshCode() {
           // 获取验证码图片对象
-          $("#vcode").prop("src","${pageContext.request.contextPath}/checkCode?time=" + new Date().getTime());
+          $("#vcode").prop("src", "${pageContext.request.contextPath}/checkCode?time=" + new Date().getTime());
       }
+
       $(function () {
           $("#login_form").submit(function () {
               $.post("${pageContext.request.contextPath}/admin/loginHandle", $(this).serialize(), function (data) {
-                  if(data.flag==true){
-                      location.href="${pageContext.request.contextPath}/admin/index";
+                  if (data.flag == true) {
+                      location.href = "${pageContext.request.contextPath}/admin/index";
                   } else {
                       alert(data.message);
                   }
@@ -47,7 +49,9 @@
 <body>
 
 <div id="box">
-  <a><img src="${pageContext.request.contextPath}/images/logo02.png"></a>
+  <a href="${pageContext.request.contextPath}/admin/index">
+    <img src="${pageContext.request.contextPath}/images/logo02.png">
+  </a>
 </div>
 <div class="reg_slogan">管理员登录</div>
 

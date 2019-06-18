@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * 商品种类模型类
  */
-public class GoodsType implements Serializable{
+public class GoodsType implements Serializable {
 
     private Integer id;
     private String name;    // 种类名称
@@ -44,13 +44,4 @@ public class GoodsType implements Serializable{
         this.image = image;
     }
 
-    @Override
-    public String toString() {
-        return "GoodsType{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", logo='" + logo + '\'' +
-                ", image='" + image + '\'' +
-                '}';
-    }
 }

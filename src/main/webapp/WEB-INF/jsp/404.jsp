@@ -2,7 +2,7 @@
 <html lang="zh_CN">
 <head>
   <meta charset="UTF-8">
-  <title>${title}</title>
+  <title>404</title>
   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/reset.css">
   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css">
   <script src="${pageContext.request.contextPath}/js/jquery-1.12.4.min.js"></script>
@@ -39,7 +39,7 @@
   </div>
 </div>
 <div id="msg">
-  <h4>${info}</h4>
+  <h4>该页面未找到..</h4>
 </div>
 
 <div class="footer no-mp" id="footer"></div>

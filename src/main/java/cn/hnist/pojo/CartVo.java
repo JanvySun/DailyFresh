@@ -1,5 +1,8 @@
 package cn.hnist.pojo;
 
+/**
+ * 购物车vo类，包含商品sku，总数量，总金额
+ */
 public class CartVo {
 
     private GoodsSKU sku;

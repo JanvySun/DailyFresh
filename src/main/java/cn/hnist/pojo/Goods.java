@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * 商品SPU模型类
  */
-public class Goods implements Serializable{
+public class Goods implements Serializable {
 
     private Integer id;
     private String name;    // 商品名称
@@ -31,12 +31,4 @@ public class Goods implements Serializable{
         this.detail = detail;
     }
 
-    @Override
-    public String toString() {
-        return "Goods{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", detail='" + detail + '\'' +
-                '}';
-    }
 }

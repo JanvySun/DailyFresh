@@ -19,7 +19,8 @@ public class ResultInfo implements Serializable {
         this.obj = obj;
     }
 
-    public ResultInfo() { }
+    public ResultInfo() {
+    }
 
     public ResultInfo(boolean flag, String message) {
         this.flag = flag;

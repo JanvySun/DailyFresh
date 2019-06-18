@@ -82,7 +82,9 @@
           <a href="${pageContext.request.contextPath}/goods/${banner.sku_id}">${banner.sku.name}</a>
         </c:forEach>
       </div>
-      <a href="${pageContext.request.contextPath}/goods/list/${typeVo.type.id}" class="goods_more fr" id="fruit_more">查看更多 ></a>
+      <a href="${pageContext.request.contextPath}/goods/list/${typeVo.type.id}" class="goods_more fr" id="fruit_more">
+        查看更多>
+      </a>
     </div>
 
     <div class="goods_con clearfix">

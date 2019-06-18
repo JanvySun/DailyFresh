@@ -71,16 +71,48 @@
               // 获取商品数量
               var count = $(".num_show").val();
               // 发送ajax请求，访问/cart/add, 传递sku_id和count
-              var params = {"skuId":${sku.id}, "count":count};
+              var params = {"skuId":${sku.id}, "count": count};
               $.post("${pageContext.request.contextPath}/cart/add", params, function (data) {
-                  if(data.flag==true){
-                      alert("添加成功");
-                      // 刷新当前页面
-                      location.reload();
+                  if (data.flag == true) {
+
+                      var $cart = $('#cart');
+                      var $count = $('#cart').next();
+                      var $btn = $('#add_cart');
+                      var $point = $('#add_jump');
+
+                      var $w01 = $btn.outerWidth();
+                      var $h01 = $btn.outerHeight();
+
+                      var $w02 = $cart.outerWidth();
+                      var $h02 = $cart.outerHeight();
+
+                      var oPos01 = $btn.offset();
+                      var oPos02 = $cart.offset();
+
+                      $point.css({
+                          'left': oPos01.left + parseInt($w01 / 2) - 8,
+                          'top': oPos01.top + parseInt($h01 / 2) - 8
+                      });
+                      $point.show();
+                      $point.stop().animate({
+                              'left': oPos02.left + parseInt($w02 / 2) - 8,
+                              'top': oPos02.top + parseInt($h01 / 2) - 8
+                          },
+                          500, function () {
+                              $point.hide();
+                              $count.html(data.obj);
+                          });
                   } else {
-                      alert(data.message);
+                      $("#pop_msg").text(data.message);
+                      $('.popup_con').fadeIn('fast');
+                      $(".num_show").val(1);
+                      cal_goods_amount();
                   }
               });
+          });
+
+          $(document).click(function () {
+              $('.popup_con').fadeOut();
           });
       });
   </script>
@@ -107,21 +139,21 @@
       </ul>
     </div>
     <ul class="navlist fl">
-      <li><a href="#">首页</a></li>
+      <li><a href="${pageContext.request.contextPath}/">首页</a></li>
       <li class="interval">|</li>
-      <li><a href="">手机生鲜</a></li>
+      <li><a href="javascript:void(0);">手机生鲜</a></li>
       <li class="interval">|</li>
-      <li><a href="#">抽奖</a></li>
+      <li><a href="javascript:void(0);">抽奖</a></li>
     </ul>
   </div>
 </div>
 
 <div class="breadcrumb">
-  <a href="#">全部分类</a>
+  <a href="javascript:void(0);">全部分类</a>
   <span>></span>
-  <a href="#">${type.name}</a>
+  <a href="javascript:void(0);">${type.name}</a>
   <span>></span>
-  <a href="#">商品详情</a>
+  <a href="javascript:void(0);">商品详情</a>
 </div>
 
 <div class="goods_detail_con clearfix">
@@ -133,14 +165,16 @@
     <div class="prize_bar">
       <span class="show_pirze">¥<em>${sku.price}</em></span>
       <span class="show_unit">单  位：${sku.unite}</span>
+      <span class="show_unit">销  量：${sku.sales}</span>
     </div>
     <div class="goods_num clearfix">
       <div class="num_name fl">数 量：</div>
       <div class="num_add fl">
         <input type="text" class="num_show fl" value="1">
-        <a href="#" class="add fr">+</a>
-        <a href="#" class="minus fr">-</a>
+        <a href="javascript:void(0);" class="add fr">+</a>
+        <a href="javascript:void(0);" class="minus fr">-</a>
       </div>
+      <div class="num_name fl" style="margin-left: 120px">库 存：${sku.stock}</div>
     </div>
     <div class="total">总价：<em>16.80元</em></div>
     <div class="operate_btn">
@@ -184,7 +218,14 @@
 
 <div class="footer" id="footer"></div>
 
-<div class="add_jump"></div>
+<div class="popup_con">
+  <div class="popup">
+    <p id="pop_msg"></p>
+  </div>
+  <div class="mask"></div>
+</div>
+
+<div class="add_jump" id="add_jump"></div>
 
 </body>
 </html>

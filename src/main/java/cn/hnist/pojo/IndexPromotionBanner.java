@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * 首页促销活动模型类
  */
-public class IndexPromotionBanner implements Serializable{
+public class IndexPromotionBanner implements Serializable {
 
     private Integer id;
     private String name;    // 活动名称
@@ -53,14 +53,4 @@ public class IndexPromotionBanner implements Serializable{
         this.od = od;
     }
 
-    @Override
-    public String toString() {
-        return "IndexPromotionBanner{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", url='" + url + '\'' +
-                ", image='" + image + '\'' +
-                ", od=" + od +
-                '}';
-    }
 }

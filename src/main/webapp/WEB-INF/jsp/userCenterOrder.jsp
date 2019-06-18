@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="zh_CN">
 <head>
   <meta charset="UTF-8">
@@ -14,6 +15,44 @@
           $.get("${pageContext.request.contextPath}/footer", function (data) {
               $("#footer").html(data);
           });
+
+          $(".oper_btn").each(function () {
+              var status = $(this).attr("status");
+              if (status == 1) {
+                  $(this).text("去支付");
+              } else if (status == 3) {
+                  $(this).text("确认收货");
+              } else if (status == 4) {
+                  $(this).text("已完成");
+              }
+          });
+
+          $(".oper_btn").click(function () {
+              var status = $(this).attr("status");
+              var orderId = $(this).attr("order_id");
+              var params = {"order_id": orderId};
+              if (status == 1) {
+                  // 进行支付
+                  $.post("${pageContext.request.contextPath}/user/order/pay", params, function (data) {
+                      if (data.flag == true) {
+                          //引导用户去支付页面
+                          window.location.href = data.message;
+                      } else {
+                          alert(data.message);
+                      }
+                  });
+              } else if (status == 3) {
+                  if (confirm("您确定收到货了吗？")) {
+                      $.post("${pageContext.request.contextPath}/user/order/success", params, function (data) {
+                          if (data.flag == true) {
+                              location.reload();
+                          } else {
+                              alert(data.message);
+                          }
+                      });
+                  }
+              }
+          });
       });
   </script>
 </head>
@@ -23,11 +62,14 @@
 </div>
 
 <div class="search_bar clearfix">
-  <a href="index.jsp" class="logo fl"><img src="${pageContext.request.contextPath}/images/logo.png"></a>
+  <a href="${pageContext.request.contextPath}/" class="logo fl">
+    <img src="${pageContext.request.contextPath}/images/logo.png"></a>
   <div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;用户中心</div>
   <div class="search_con fr">
-    <input type="text" class="input_text fl" name="" placeholder="搜索商品">
-    <input type="button" class="input_btn fr" name="" value="搜索">
+    <form method="post" action="${pageContext.request.contextPath}/find">
+      <input type="text" class="input_text fl" name="findName" placeholder="搜索商品">
+      <input type="submit" class="input_btn fr" value="搜索">
+    </form>
   </div>
 </div>
 
@@ -42,79 +84,37 @@
   </div>
   <div class="right_content clearfix">
     <h3 class="common_title2">全部订单</h3>
-    <ul class="order_list_th w978 clearfix">
-      <li class="col01">2016-8-21 17:36:24</li>
-      <li class="col02">订单号：56872934</li>
-      <li class="col02 stress">未支付</li>
-    </ul>
 
-    <table class="order_list_table w980">
-      <tbody>
-      <tr>
-        <td width="55%">
-          <ul class="order_goods_list clearfix">
-            <li class="col01"><img src="${pageContext.request.contextPath}/images/goods02.jpg"></li>
-            <li class="col02">嘎啦苹果嘎啦苹果<em>11.80元/500g</em></li>
-            <li class="col03">1</li>
-            <li class="col04">11.80元</li>
-          </ul>
-          <ul class="order_goods_list clearfix">
-            <li class="col01"><img src="${pageContext.request.contextPath}/images/goods02.jpg"></li>
-            <li class="col02">嘎啦苹果嘎啦苹果<em>11.80元/500g</em></li>
-            <li class="col03">1</li>
-            <li class="col04">11.80元</li>
-          </ul>
-        </td>
-        <td width="15%">33.60元</td>
-        <td width="15%">待付款</td>
-        <td width="15%"><a href="#" class="oper_btn">去付款</a></td>
-      </tr>
-      </tbody>
-    </table>
+    <c:forEach items="${orderVos}" var="vo">
+      <ul class="order_list_th w978 clearfix">
+        <li class="col02">订单号：${vo.orderInfo.order_id}</li>
+        <li class="col02 stress">${vo.status_name}</li>
+      </ul>
 
-    <ul class="order_list_th w978 clearfix">
-      <li class="col01">2016-8-21 17:36:24</li>
-      <li class="col02">订单号：56872934</li>
-      <li class="col02 stress">已支付</li>
-    </ul>
-    <table class="order_list_table w980">
-      <tbody>
-      <tr>
-        <td width="55%">
-          <ul class="order_goods_list clearfix">
-            <li class="col01"><img src="${pageContext.request.contextPath}/images/goods02.jpg"></li>
-            <li class="col02">嘎啦苹果嘎啦苹果<em>11.80元/500g</em></li>
-            <li class="col03">1</li>
-            <li class="col04">11.80元</li>
-          </ul>
-          <ul class="order_goods_list clearfix">
-            <li class="col01"><img src="${pageContext.request.contextPath}/images/goods02.jpg"></li>
-            <li class="col02">嘎啦苹果嘎啦苹果<em>11.80元/500g</em></li>
-            <li class="col03">1</li>
-            <li class="col04">11.80元</li>
-          </ul>
-        </td>
-        <td width="15%">33.60元</td>
-        <td width="15%">已付款</td>
-        <td width="15%"><a href="#" class="oper_btn">查看物流</a></td>
-      </tr>
-      </tbody>
-    </table>
+      <table class="order_list_table w980">
+        <tbody>
+        <tr>
+          <td width="55%">
+            <c:forEach items="${vo.orderGoods}" var="orderGoods">
+              <ul class="order_goods_list clearfix">
+                <li class="col01"><img src="${orderGoods.sku.image}"></li>
+                <li class="col02">${orderGoods.sku.name}<em>${orderGoods.sku.price}元/${orderGoods.sku.unite}</em></li>
+                <li class="col03">${orderGoods.count}件</li>
+                <li class="col04"></li>
+              </ul>
+            </c:forEach>
+          </td>
+          <td width="15%">${vo.orderInfo.total_price}元</td>
+          <td width="15%">${vo.status_name}</td>
+          <td width="15%"><a href="javascript:void(0);" order_id="${vo.orderInfo.order_id}"
+                             status="${vo.orderInfo.order_status}" class="oper_btn">去付款</a></td>
+        </tr>
+        </tbody>
+      </table>
+    </c:forEach>
 
-    <div class="pagenation">
-      <a href="#">
-        &lt;上一页
-      </a>
-      <a href="#" class="active">1</a>
-      <a href="#">2</a>
-      <a href="#">3</a>
-      <a href="#">4</a>
-      <a href="#">5</a>
-      <a href="#">下一页&gt;</a>
-    </div>
   </div>
 </div>
-
 
 <div class="footer" id="footer"></div>
 

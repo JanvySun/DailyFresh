@@ -23,7 +23,6 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-
     <!--前端控制器默认会将所有的静态资源拦截，配置静态资源不拦截-->
     <mvc:resources mapping="/css/**" location="/css/"/>
     <mvc:resources mapping="/js/**" location="/js/"/>

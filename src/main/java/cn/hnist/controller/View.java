@@ -38,9 +38,9 @@ public class View {
         ModelAndView mv = new ModelAndView();
         User user = (User) session.getAttribute("user");
         Integer cart_count = 0;
-        if(user!=null){
+        if (user != null) {
             // 如果用户登录
-            cart_count = redisService.getCount(user.getId());
+            cart_count = redisService.getAllCartCount(user.getId());
         }
         mv.addObject("cart_count", cart_count);
 
@@ -93,6 +93,18 @@ public class View {
         ModelAndView mv = new ModelAndView();
         mv.addObject("title", "注册成功");
         mv.addObject("info", "恭喜，注册成功！请登录您的注册邮箱进行激活您的账号，激活后才能登录。");
+        mv.setViewName("info");
+        return mv;
+    }
+
+    /**
+     * 支付成功页面
+     */
+    @RequestMapping("/payOk")
+    public ModelAndView payOk() {
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("title", "支付成功");
+        mv.addObject("info", "交易支付成功，正在跳转至商户页面");
         mv.setViewName("info");
         return mv;
     }

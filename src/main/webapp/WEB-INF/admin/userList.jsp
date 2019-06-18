@@ -77,7 +77,9 @@
 <body>
 
 <div id="box">
-  <a><img src="${pageContext.request.contextPath}/images/logo02.png"></a>
+  <a href="${pageContext.request.contextPath}/admin/index">
+    <img src="${pageContext.request.contextPath}/images/logo02.png">
+  </a>
 </div>
 <div class="reg_slogan">用户信息列表(管理页面)</div>
 
@@ -115,7 +117,7 @@
           <td>${user.status}</td>
           <td>${user.is_superuser}</td>
           <td>
-            <a class="btn btn-default btn-sm" href="${pageContext.request.contextPath}/admin/address/list/${user.id}">查看地址</a>
+            <a class="btn btn-default btn-sm" href="${pageContext.request.contextPath}/admin/address/list/${user.id}">查看</a>
           </td>
           <td><a class="btn btn-default btn-sm" href="${pageContext.request.contextPath}/admin/user/update/${user.id}">修改</a>&nbsp;
             <a class="btn btn-default btn-sm" href="javascript:deleteUser(${user.id});">删除</a></td>

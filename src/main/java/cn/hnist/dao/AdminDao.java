@@ -9,32 +9,33 @@ import java.util.List;
 @Repository
 public interface AdminDao {
 
-    // ------------ 表 user CRUD ------------
-    //region 表 user CRUD
     /**
      * 查询用户表中的所有信息
      */
-    @Select("select * from user")
+    @Select("select * from user where is_delete='N'")
     List<User> findAllUsers();
 
     /**
      * 查询用户总记录数
+     *
      * @return : 数目
      */
-    @Select("select count(*) from user")
+    @Select("select count(1) from user where is_delete='N'")
     Integer findUserTotalCount();
 
     /**
      * 分页查询每页记录
+     *
      * @param start : 开始处
-     * @param rows : 数目
+     * @param rows  : 数目
      * @return : 结果集
      */
-    @Select("select * from user limit #{arg0},#{arg1}")
+    @Select("select * from user where is_delete='N' limit #{arg0},#{arg1}")
     List<User> findUserByPage(Integer start, Integer rows);
 
     /**
      * 根据用户名查询用户
+     *
      * @param username : 用户名
      * @return : 查询到的用户
      */
@@ -43,6 +44,7 @@ public interface AdminDao {
 
     /**
      * 根据id查询用户
+     *
      * @param id : 用户id
      * @return : 用户实体
      */
@@ -51,6 +53,7 @@ public interface AdminDao {
 
     /**
      * 通过用户名和密码查询用户
+     *
      * @param username : 用户名
      * @param password : 密码
      * @return : 查询到的用户对象
@@ -60,6 +63,7 @@ public interface AdminDao {
 
     /**
      * 添加用户
+     *
      * @param user : 用户实体
      */
     @Insert("insert into user(username,password,is_superuser,email,status,code) " +
@@ -68,26 +72,24 @@ public interface AdminDao {
 
     /**
      * 删除用户
+     *
      * @param id : 用户id
      */
-    @Delete("delete from user where id=#{id}")
+    @Delete("update user set is_delete='Y' where id=#{id}")
     void deleteUser(Integer id);
 
     /**
      * 更新用户信息
+     *
      * @param user : 用户实体
      */
     @Update("update user set username=#{username},password=#{password},email=#{email},status=#{status} " +
             "where id=#{id}")
     void updateUser(User user);
-    //endregion
-    // =====================================
 
-
-    // ------------ 表 address CRUD ------------
-    //region 表 address CRUD
     /**
      * 查询某个用户所有的地址
+     *
      * @param id : 用户id
      * @return : 结果集
      */
@@ -96,6 +98,7 @@ public interface AdminDao {
 
     /**
      * 根据地址id查询地址
+     *
      * @param id : 地址id
      * @return : 地址对象
      */
@@ -104,6 +107,7 @@ public interface AdminDao {
 
     /**
      * 更新某个用户的所有地址的默认情况为'N'
+     *
      * @param user_id : 用户id
      */
     @Update("update address set is_default='N' where user_id=#{user_id}")
@@ -111,6 +115,7 @@ public interface AdminDao {
 
     /**
      * 添加地址
+     *
      * @param addr : 地址实体
      */
     @Insert("insert into address(receiver,addr,zip_code,phone,is_default,user_id) " +
@@ -119,6 +124,7 @@ public interface AdminDao {
 
     /**
      * 更新地址
+     *
      * @param address : 地址实体
      */
     @Update("update address set receiver=#{receiver},addr=#{addr},zip_code=#{zip_code},phone=#{phone}," +
@@ -127,18 +133,15 @@ public interface AdminDao {
 
     /**
      * 删除地址
+     *
      * @param id : 地址id
      */
     @Delete("delete from address where id=#{id}")
     void deleteAddress(Integer id);
-    //endregion
-    // ========================================
 
-
-    // ------------ 表 goods_type CRUD ------------
-    //region 表goods_type CRUD
     /**
      * 查询 goods_type表中的所有元素
+     *
      * @return : 结果集
      */
     @Select("select * from goods_type")
@@ -155,13 +158,7 @@ public interface AdminDao {
      */
     @Update("update goods_type set image=#{image} where id=#{id}")
     void updateGoodsType(GoodsType goodsType);
-    //endregion
-    // ===========================================
 
-
-
-    // ------------ 表 goods CRUD ------------
-    //region 表goodsCRUD
     /**
      * 分页查询goods表
      */
@@ -179,13 +176,7 @@ public interface AdminDao {
      */
     @Select("select * from goods where id=#{id}")
     Goods findGoodsById(Integer id);
-    //endregion
-    // ===========================================
 
-
-
-    // ------------ 表 goods_sku CRUD ------------
-    //region 表goods_sku CRUD
     /**
      * 根据商品id查询其所有SKU
      */
@@ -210,12 +201,7 @@ public interface AdminDao {
     @Update("update goods_sku set name=#{name},`desc`=#{desc},price=#{price},unite=#{unite}," +
             "image=#{image},stock=#{stock},sales=#{sales},status=#{status} where id=#{id}")
     void updateGoodsSKU(GoodsSKU sku);
-    //endregion
-    // ==========================================
 
-
-
-    // ------------ 表 index_banner CRUD ------------
     /**
      * 查询index_banner表所有信息
      */
